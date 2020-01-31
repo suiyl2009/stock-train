@@ -1,0 +1,119 @@
+<html>
+<head>
+    <title>login</title>
+    <style>
+        * {
+            margin: 0px;
+            
+        }
+
+        body{
+            background: #364a55;
+        }
+
+        .divcontent {
+            width: 400px;
+            height: 240px;
+            border: 1px solid #adadad;
+            border-radius: 3px;
+            margin: auto;
+            background: rgba(244, 245, 245, 0.8);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        h4 {
+            text-align:center;
+        }
+
+        .divitem {
+            margin: 30px;
+        }
+
+        .note {
+            font-size: 12px;
+        }
+
+        .labelitem {
+            width: 80px;
+            text-align: right;
+            display: inline-block;
+        }
+    </style>
+    <script type="text/javascript" src="../conf/conf.js"></script>
+</head>
+<body>
+    <div class="divcontent">
+        <div class="divitem">
+            <h4>用户登录</h4>
+        </div>
+        <div class="divitem">
+            <label class="labelitem">用户名</label>
+            <input id="username" type="text" placeholder="用户名/邮箱" />
+        </div>
+        <div class="divitem">
+            <label class="labelitem">密码</label>
+            <input id="password" type="password" />
+        </div>
+        <div class="divitem">
+            <button id="submit" style="margin-left:90px;">登录</button>
+            <a href="register.html" target="_blank" style="margin-left:50px;">注册</a>
+            <!--<button id="register" style="margin-left:50px;">注册</button>-->
+        </div>
+    </div>
+    <script>
+        document.getElementById('submit').onclick = function () {
+            var retcode = '';
+            var session = '';
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            //alert('username: ' + username + ', password: ' + password);
+            console.log('username: ' + username + ', password: ' + password);
+            var req =
+                {
+                    "method": "user.login",
+                    "identity": username,
+                    "password": password
+                };
+            console.log('user.checkitem: ' + JSON.stringify(req));
+            function remoteLogin(objJson) {
+                type = 0;
+                if (objJson.retcode != '0000') {
+                    console.log("ERROR: retcode[" + objJson.retcode + "] != 0000");
+                    retcode = objJson.retcode;
+                    return false;
+                }
+                retcode = objJson.retcode;
+                console.log(objJson);
+                //username = objJson.result.name;
+                //session = objJson.result.session;
+                user.m_data.sessionid = objJson.result.session;
+                user.m_data.username = objJson.result.name;
+                user.set();
+
+                return true;
+            }
+            gdata.send(req, remoteLogin);
+
+            if ('0000' == retcode) {
+                console.log('success login username: ' + username + ', session: ' + session);
+                //window.parent.location.reload();//框架页中有效
+                //window.history.go(-1);
+                window.location.href = document.referrer;
+                window.history.back(-1);
+            }
+            else if ('0010' == retcode){
+                alert('用户名或密码错误');
+                console.log('login error retcode: ' + retcode);
+            }
+            else {
+                alert("系统内部错误：" + retcode);
+                console.log('login error retcode: ' + retcode);
+            }
+        }
+    </script>
+</body>
+</html>

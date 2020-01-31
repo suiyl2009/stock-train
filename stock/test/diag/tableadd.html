@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+    <title>add or del</title>
+    <style>
+      .displayStyle{
+             background-color:00FFFF;
+         }    
+         
+         .hideStyle{
+             background-color:#FFFFF;
+         }
+         
+         .onClickStyle{
+             background-color:00FF00;
+         }
+         
+         a{
+             color:red;
+         }
+         
+         a:hover{
+             color:green;    
+         }
+    </style>
+</head>
+<body>
+            <form name="myForm">
+                <table width="100%" id="tab" name="tab" border="0px" style="text-align:center;">
+                    <tr style="background-color:0099FF;color:black;">
+                        <td>选择</td> 
+                        <td>编号</td>
+                        <td>姓名</td>    
+                        <td>年龄</td>    
+                        <td>地址</td>        
+                        <td>操作</td>        
+                        <td>操作</td>
+                    </tr>    
+                    <tr id="tr1" onmouseOver="onmouseOverMethod(this)" onmouseOut="onmouseOutMethod(this)" onclick="onClickChangeStyle(this)">
+                        <td><input type='hidden'><input type="checkbox" value="11"/></td>
+                        <td>100</td>
+                        <td>张三</td>    
+                        <td>15</td>
+                        <td>湖南株洲</td>
+                        <td><a href="#" onclick="addRow()">添加</a></td>
+                        <td><a href="#" onclick="deleteRow(this)">删除</a></td>
+                    </tr>
+                    <tr id="tr2" onmouseOver="onmouseOverMethod(this)" onmouseOut="onmouseOutMethod(this)" onclick="onClickChangeStyle(this)">
+                        <td><input type="checkbox" value="22"/></td>
+                        <td>101</td>
+                        <td>李四</td>    
+                        <td>15</td>
+                        <td>湖南长沙</td>
+                        <td><a href="#" onclick="addRow()">添加</a></td>
+                        <td><a href="#" onclick="deleteRow(this)">删除</a></td>
+                    </tr>
+                    <tr id="tr3" onmouseOver="onmouseOverMethod(this)" onmouseOut="onmouseOutMethod(this)" onclick="onClickChangeStyle(this)">
+                        <td><input type="checkbox" value="33"/></td>
+                        <td>102</td>
+                        <td>王五</td>    
+                        <td>15</td>
+                        <td>湖南湘潭</td>
+                        <td><a href="#" onclick="addRow()">添加</a></td>
+                        <td><a href="#" onclick="deleteRow(this)">删除</a></td>
+                    </tr>
+                </table>
+                
+
+            </form>    
+    <script>
+        var selectRow=null; 
+        //单击时,改变样式;
+        function onClickChangeStyle(obj){
+               //获取表格对象;
+               var tab = document.getElementById("tab");
+       
+                 //获取当前行选择下标;
+                 var currentRowIndex = obj.rowIndex;
+
+                 //获取表格所有行数;
+               var tablRows = tab.rows.length;
+      
+               //获取表格第一行,第一列的值;
+               //var firstCellValue = tab.rows[0].cells[0].innerHTML;
+       
+               //获取表格的第一行，第一列的第一个元素的值;
+               //var firstChildValue = tab.rows[0].cells[0].firstChild.value;
+       
+               //循环表格的所有行;并且选择的当前行，改变背景颜色；
+               for(var i = 1;i<tablRows;i=i+1){
+                       if(currentRowIndex == i){
+                             //为选中的当前，设置css样式;
+                             selectRow  = tab.rows[i];
+                             tab.rows[i].className= "onClickStyle";
+                       }else{
+                             //把没有选中的行的背景样式设置为白色;
+                               tab.rows[i].className= "hideStyle";
+                       }
+               }    
+        }
+
+        //鼠标移入时，改变颜色;
+        function onmouseOverMethod(selectThis){
+              selectThis.className="displayStyle";
+              if(selectRow==selectThis){
+                      selectThis.className="onClickStyle";
+              }
+        }
+
+        //鼠标移除时，改变背景颜色;
+        function onmouseOutMethod(selectThis){
+             selectThis.className="hideStyle";
+             if(selectRow == selectThis){
+                  selectThis.className="onClickStyle";
+            }
+        }
+
+        //添加行;
+        function addRow(){
+                var tab = document.getElementById('tab');
+              var rowIndex = tab.rows.length+1;
+
+              //添加一行;
+                var tr  = tab.insertRow();
+                tr.onmouseover = tr.className="displayStyle" ;
+                tr.onmouseout = tr.className="hideStyle" ;
+                tr.onclick=function (){this.className="onClickChangeStyle(this)";}
+            
+                var td1 = tr.insertCell();
+                var td2 = tr.insertCell();
+                var td3 = tr.insertCell();
+                var td4 = tr.insertCell();
+                var td5 = tr.insertCell();
+                var td6 = tr.insertCell();
+                var td7 = tr.insertCell();
+        
+                td1.innerHTML = "<input type='hidden'/><input type='checkbox' value = '1'>";
+                td2.innerHTML = ""+rowIndex;
+                td3.innerHTML = "测试";
+                td4.innerHTML = "22";
+                td5.innerHTML = "无地址";
+                td6.innerHTML = "<a href='#' onclick='addRow()'>添加</a>";
+                td7.innerHTML = "<a href='#' onclick='deleteRow(this)'>删除</a>";
+        
+                //初始化行;
+                initRows(tab);
+        }
+
+        //初始化行,设置序列号;
+        function initRows(tab){
+             var tabRows = tab.rows.length;
+             for(var i = 0;i<tabRows.length;i++){
+                     tab.rows[i].cells[0].firstChild.value=i;
+            }
+        }
+
+        //删除行;(obj代表连接对象)
+        function deleteRow(obj){
+            var tab = document.getElementById('tab');
+            //获取tr对象;
+            var tr = obj.parentNode.parentNode;
+    
+            if(tab.rows.length>2){
+                //tr.parentNode，指的是，table对象;移除子节点;
+                tr.parentNode.removeChild(tr);
+            }
+            //重新生成行号;
+            initRows(document.getElementById('tab'));
+        }
+    </script>
+    </body>
+</html>

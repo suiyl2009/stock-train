@@ -1,0 +1,19 @@
+<script>
+    if(!window.localStorage){
+        alert("浏览器支持localstorage");
+    }else{
+        var localStorage = window.localStorage;
+        var localConf = localStorage.getItem('config');
+        if (null == localConf) {
+            console.log("localConf is null");
+        }
+        console.log(typeof(localConf));
+        console.log(localConf);
+        /*var getLocalData = localStorage.getItem('localData'); // 读取字符串数据
+        console.log(typeof (getLocalData)); // string
+        var jsonObj = JSON.parse(getLocalData);
+        console.log(typeof (jsonObj)); // obj
+        console.log(jsonObj.age); // 29
+        console.log(jsonObj.name);*/
+    }
+</script>

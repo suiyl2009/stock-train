@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jQuery美化版下拉框DEMO演示</title>
+<link href="ui-select.css" rel="stylesheet" />
+<style>
+body{font-family:Arial, Helvetica, sans-serif;background:#eee;}
+.demo-box {
+    margin: 50px auto;
+    width: 500px;
+    padding: 20px;
+    border: 5px solid #ccc;
+	background:#fff;
+}
+.demo-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.demo-table caption {
+    border-bottom: 1px dashed #ccc;
+    height: 40px;
+    margin-bottom: 20px;
+	font-size:18px;line-height:1.2;
+}
+.demo-table tr td {
+    padding: 8px 10px;
+	font-size:16px;line-height:1.8;
+    vertical-align: top;
+}
+.ui-input {
+    vertical-align: top;
+    height: 18px;
+    font-size: 16px;
+    line-height: 20px;
+    border: 1px solid #aaa;
+    padding: 6px 8px;
+    border-radius: 3px;
+}
+</style>
+</head>
+<body>
+<div style="text-align:center;clear:both;">
+	<script src="/gg_bd_ad_720x90.js" type="text/javascript"></script>
+	<script src="/follow.js" type="text/javascript"></script>
+</div>
+<div class="demo-box">
+  <table class="demo-table">
+    <caption>jQuery Select下拉框美化插件</caption>
+    <tr>
+      <td style="width:120px;"><label for="sel_01">基本</label></td>
+      <td><select class="ui-select" id="sel_01" style="width:100%">
+          <option value="1">HTML5资源教程 1</option>
+          <option value="2">HTML5资源教程 2</option>
+          <option value="3">HTML5资源教程 3</option>
+          <option value="4">HTML5资源教程 4</option>
+          <option value="5">HTML5资源教程 5</option>
+          <option value="6">HTML5资源教程 6</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td>滚动条</td>
+      <td><select class="ui-select" id="sel_02" style="width:100%;">
+          <option value="1">HTML5资源教程 1</option>
+          <option value="2">HTML5资源教程 2</option>
+          <option value="3">HTML5资源教程 3</option>
+          <option value="4">HTML5资源教程 4</option>
+          <option value="5">HTML5资源教程 5</option>
+          <option value="6">HTML5资源教程 6</option>
+          <option value="7">HTML5资源教程 7</option>
+          <option value="8">HTML5资源教程 8</option>
+          <option value="9">HTML5资源教程 9</option>
+          <option value="10">HTML5资源教程 10</option>
+          <option value="11">HTML5资源教程 11</option>
+          <option value="12">HTML5资源教程 12</option>
+          <option value="13">HTML5资源教程 13</option>
+          <option value="14">HTML5资源教程 14</option>
+          <option value="15">HTML5资源教程 15</option>
+          <option value="16">HTML5资源教程 16</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td>禁用</td>
+      <td><select class="ui-select" id="sel_03" disabled style="width:100%">
+          <option value="1">HTML5资源教程 1</option>
+          <option value="2">HTML5资源教程 2</option>
+          <option value="3">HTML5资源教程 3</option>
+          <option value="4">HTML5资源教程 4</option>
+          <option value="5">HTML5资源教程 5</option>
+          <option value="6">HTML5资源教程 6</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td>禁用的选项</td>
+      <td><select class="ui-select" id="sel_04" style="width:100%">
+          <option value="1">HTML5资源教程 1</option>
+          <option value="2">HTML5资源教程 2</option>
+          <option value="3">HTML5资源教程 3</option>
+          <option value="4" disabled>HTML5资源教程 4</option>
+          <option value="5">HTML5资源教程 5</option>
+          <option value="6">HTML5资源教程 6</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td>API</td>
+      <td><select class="ui-select" id="sel_api" style="width:100%">
+          <option value="">API</option>
+          <option value="2">Enable sel_03</option>
+          <option value="3">Disablesel_03</option>
+          <option value="4">Set sel_01 to 3</option>
+          <option value="5">Toggle sel_02</option>
+          <option value="6">visable:hidden sel_02</option>
+          <option value="7">visable:show sel_02</option>
+        </select></td>
+    </tr>
+  </table>
+</div>
+<script src="jquery.js"></script>
+<script src="ui-select.js"></script>
+<script>
+// 将所有.ui-select实例化
+$('.ui-select').ui_select();
+
+// 获取已经实例化的select对象
+var obj = $('#sel_api').data('ui-select');
+
+obj.onClick = function(value) {
+switch (value) {
+    case '2':
+        $('#sel_03').data('ui-select').enable();
+        break;
+    case '3':
+        $('#sel_03').data('ui-select').disable();
+        break;
+    case '4':
+        $('#sel_01').data('ui-select').val('3');
+        break;
+    case '5':
+        $('#sel_02').data('ui-select').toggle();
+        break;
+    case '6':
+        $('#sel_02').data('ui-select').visible();
+        break;
+    case '7':
+        $('#sel_02').data('ui-select').visible(true);
+        break;
+}
+}
+</script>
+
+</body>
+</html>

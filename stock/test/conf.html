@@ -1,0 +1,20 @@
+<script>
+    var conf = conf || {
+        "batch": { "absolute": true, "color": [65535, 255, 4259584, 8388608, 128, 16711935], "count": 6, "line": "Revenue", "tradepoint": true },
+        "date": 20141010,
+        "isreportdate": 0,
+        "list": ["Code", "Revenue", "DayPR", "DayPR2", "NetAssertRate", "ClosingDate", "DeclarationDate", "DayDate", "SubIndustry", "NetProfit"],
+        "single": { "absolute": false, "line": [{ "color": 16777215, "type": "ROE" }, { "color": 8421631, "type": "Revenue" }], "tradepoint": true }
+    };
+    if(window.localStorage){
+        var localStorage = window.localStorage;
+        if (null == localStorage.getItem('conf')) {
+            var str_jsonData = JSON.stringify(conf);
+            localStorage.setItem('conf', str_jsonData); // 存储字符串数据到本地
+        }
+        var getLocalData = localStorage.getItem('conf'); // 读取字符串数据
+        conf = JSON.parse(getLocalData);
+        console.log(typeof (conf));
+        console.log(conf);
+    }
+</script>

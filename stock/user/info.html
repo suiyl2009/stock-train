@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>user info</title>
+    <style>
+        * {
+            margin: 0px;
+        }
+
+        body{
+            background: #364a55;
+        }
+
+        .divcontent {
+            width: 360px;
+            height: 400px;
+            border: 1px solid #adadad;
+            border-radius: 3px;
+            margin: auto;
+            background: rgba(244, 245, 245, 0.8);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        h4 {
+            text-align:center;
+        }
+
+        .divitem {
+            margin: 30px;
+        }
+
+        .note {
+            font-size: 12px;
+        }
+
+        .labelitem {
+            width: 140px;
+            text-align: left;
+            display: inline-block;
+        }
+    </style>
+    <script type="text/javascript" src="../conf/conf.js"></script>
+    <link href="../menu.css" rel="stylesheet" type="text/css"> 
+</head>
+<body id="body">
+    <div class="divcontent">
+        <div class="divitem">
+            <h4>个人信息</h4>
+        </div>
+        <div class="divitem">
+            <label class="labelitem">用户名</label>
+            <label id="username" class="labelitem">test</label>
+        </div>
+        <div class="divitem">
+            <label class="labelitem">邮箱</label>
+            <label id="email" class="labelitem">abc@163.com</label>
+        </div>
+        <div class="divitem">
+            <label class="labelitem">用户级别</label>
+            <label id="userlevel" class="labelitem">1</label>
+        </div>
+        <div class="divitem">
+            <label class="labelitem">权限级别</label>
+            <label id="grantlevel" class="labelitem">1</label>
+        </div>
+        <div class="divitem">
+            <label class="labelitem">注册时间</label>
+            <label id="registertime" class="labelitem">2018-12-01</label>
+        </div>
+        <div class="divitem">
+            <button id="submit" style="margin-left:60px;height:30px;width:80px;font-size:15px;font-weight:bold;">退出</button>
+            <button id="back" style="margin-left:20px;height:30px;width:80px;font-size:15px;font-weight:bold;">返回</button>
+        </div>
+    </div>
+    <script src="../menu.js"></script>
+    <script>
+        window.onload = function(){
+            function getInfo(){
+                user.get();
+                if ("" == user.m_data.sessionid){
+                    window.location.href = document.referrer;
+                    window.history.back(-1);
+                }
+                var retcode = '';
+                var req =
+                    {
+                        "method": "user.search",
+                        "session": user.m_data.sessionid
+                    };
+                console.log('user.search: ' + JSON.stringify(req));
+                function remoteLogin(objJson) {
+                    type = 0;
+                    if (objJson.retcode != '0000') {
+                        console.log("ERROR: retcode[" + objJson.retcode + "] != 0000");
+                        retcode = objJson.retcode;
+                        return false;
+                    }
+                    retcode = objJson.retcode;
+                    console.log(objJson);
+                    //username = objJson.result.name;
+                    //session = objJson.result.session;
+                    document.getElementById("username").innerHTML = objJson.result.name;
+                    document.getElementById("email").innerHTML = objJson.result.email;
+                    document.getElementById("userlevel").innerHTML = objJson.result.userlevel;
+                    document.getElementById("registertime").innerHTML = objJson.result.createtime;
+                    return true;
+                }
+                gdata.send(req, remoteLogin);
+
+                if ('0000' != retcode) {
+                    //window.parent.location.reload();//框架页中有效
+                    //window.history.go(-1);
+                    window.location.href = document.referrer;
+                    window.history.back(-1);
+                }
+            }
+
+            document.getElementById("submit").onclick = function(){
+                user.get();
+                if ("" == user.m_data.sessionid){
+                    window.location.href = document.referrer;
+                    window.history.back(-1);
+                }
+                var retcode = '';
+                var req =
+                    {
+                        "method": "user.logout",
+                        "session": user.m_data.sessionid
+                    };
+                console.log('user.search: ' + JSON.stringify(req));
+                function remoteLogin(objJson) {
+                    type = 0;
+                    if (objJson.retcode != '0000') {
+                        console.log("ERROR: retcode[" + objJson.retcode + "] != 0000");
+                        retcode = objJson.retcode;
+                        return false;
+                    }
+                    retcode = objJson.retcode;
+                    console.log(objJson);
+
+                    return true;
+                }
+                gdata.send(req, remoteLogin);
+
+                if ('0000' == retcode) {
+                    user.m_data.sessionid = "";
+                    user.m_data.username = "";
+                    user.set();
+                }
+                window.location.href = document.referrer;
+                window.history.back(-1);
+            }
+
+            document.getElementById("back").onclick = function(){
+                window.location.href = document.referrer;
+                window.history.back(-1);
+            }
+
+            getInfo();
+        }
+    </script>
+</body>
+</html>

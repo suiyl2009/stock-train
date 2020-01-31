@@ -1,0 +1,6 @@
+---- SCondData Matches (5 in 2 files) ----
+CTradePoint::EndDate in TradePoint.cpp (D:\project\StockServer\TradePoint) :     vector<SCondData> vecCond;
+CTradePoint::SearchDBEndDate in TradePoint.cpp (D:\project\StockServer\TradePoint) :     vector<SCondData> &vecCond, 
+CTradePoint::SearchDBEndDate in TradePoint.cpp (D:\project\StockServer\TradePoint) :             SCondData sItem;
+TradePoint.h (D:\project\StockServer\TradePoint) line 18 : struct SCondData
+CTradePoint::SearchDBEndDate in TradePoint.h (D:\project\StockServer\TradePoint) :         vector<SCondData> &vecCond, 

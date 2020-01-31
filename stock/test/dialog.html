@@ -1,0 +1,178 @@
+<html>
+<head>
+    <title>dialog</title>
+    <style>
+        $blue-3: hsl(211, 57%, 25%);
+        $blue-4: hsl(211, 39%, 44%);
+        $blue-5: hsl(211, 51%, 65%);
+        $blue-7: hsl(211, 90%, 93%);
+        $blue-rich: hsl(211, 65%, 48%);
+
+        dialog {
+          padding: 0;
+          border: 0;
+          border-radius: 0.6rem;
+          box-shadow: 0 0 1em black;
+        }
+        /* native backdrop */
+        dialog::backdrop {
+          background-color: rgba(0, 0, 0, 0.4);
+        }
+        /* polyfill backdrop */
+        dialog + .backdrop {
+          position: fixed;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-color: rgba(0, 0, 0, 0.4);
+        }
+        dialog[open] {
+          animation: slide-up 0.4s ease-out;
+        }
+
+        /* The following styles are for older browsers when using
+           the polyfill. These aren¡¯t necessary for Chrome/Firefox. */
+        dialog {
+          display: none;
+          position: absolute;
+          margin: 0 auto; /* should center it, but not working in Safari */
+          max-width: 80vw;
+          background-color: white;
+        }
+        dialog[open] {
+          display: block;
+        }
+
+
+        /* prettying things up a bit */
+        .close {
+          position: absolute;
+          top: 0.2em;
+          right: 0.2em;
+          padding: 0.3em;
+          line-height: 0.6;
+          background-color: transparent;
+          border: 0;
+          font-size: 2em;
+        }
+        .modal-header,
+        .modal-body,
+        .modal-footer {
+          padding: 1em;
+        }
+
+        .modal-header {
+          margin: 0;
+          padding-bottom: 0.6em;
+          background-color: $blue-7;
+          border-top-left-radius: 0.6rem;
+          border-top-right-radius: 0.6rem;
+          border-bottom: 1px solid $blue-5;
+        }
+
+        .modal-footer {
+          border-top: 1px solid $blue-5;
+        }
+
+        /* misc page styles -- not important for demo */
+        body {
+          margin: 1em;
+        }
+
+        :first-child {
+          margin-top: 0;
+        }
+
+        :last-child {
+          margin-bottom: 0;
+        }
+
+        button {
+          padding: 0.4em 1em 0.2em;
+          font-family: Glober, Helvetica, sans-serif;
+        }
+
+        @keyframes slide-up {
+          0% {
+            opacity: 0;
+            transform: translate(0, 15px);
+          }
+  
+          100% {
+            opacity: 1;
+            transform: translate(0, 0);
+          }
+        }
+    </style>
+</head>
+<body>
+<button id="open-modal" type="button">Show me the modal</button>
+
+<dialog id="demo-modal">
+  <h3 class="modal-header">A native modal dialog box</h3>
+  <div class="modal-body">
+    <p>Finally, HTML has a native dialog box element! This is fantastic.</p>
+    <p>And a polyfill makes this usable today.</p>
+  </div>
+  <footer class="modal-footer">
+    <button id="like-it" type="button">I like it</button>
+    <button id="love-it" type="button">I love it</button>
+  </footer>
+  <button id="close" class="close" type="button">&times;</button>
+</dialog>
+
+<p><code>returnValue</code>: <span id="return-value"></span></p>
+
+<hr>
+
+<p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porttitor porttitor interdum. Vivamus vehicula nibh sit amet sapien varius hendrerit. Suspendisse ac lobortis mauris. Praesent tincidunt, risus nec pulvinar ullamcorper, ante erat luctus ante, eu suscipit elit purus sit amet turpis. In hac habitasse platea dictumst. Nulla lobortis libero non pulvinar tempus. Nulla tempor luctus sapien faucibus efficitur. Curabitur maximus nibh id sapien facilisis, vitae ultricies sem convallis. Nulla fermentum eget diam et finibus. Sed efficitur justo sed mollis ultrices. Sed pharetra dapibus nisi, non venenatis purus bibendum at. Integer risus mauris, faucibus non efficitur nec, viverra in mauris.</p>
+
+<p>In lobortis arcu ac lobortis pulvinar. Aenean libero tellus, cursus id tortor non, iaculis dapibus diam. Nullam id nisi odio. Vivamus pellentesque lacinia turpis, eu eleifend justo posuere vel. Nulla pharetra nec justo eu facilisis. Vivamus sollicitudin, est ut varius eleifend, justo metus ultrices dui, ut scelerisque nisi odio vel est. Pellentesque nec tortor tristique, tempor velit at, lobortis augue. Nunc nunc neque, accumsan a placerat accumsan, rutrum sit amet turpis.</p>
+
+<hr>
+
+<p>See my <a href="https://keithjgrant.com/posts/2018/meet-the-new-dialog-element/">&lt;dialog&gt; element write-up</a> for more details.</p>
+<script>
+    const modal = document.getElementById('demo-modal');
+    const open = document.getElementById('open-modal');
+    const close = document.getElementById('close');
+    const likeIt = document.getElementById('like-it');
+    const loveIt = document.getElementById('love-it');
+    const returnSpan = document.getElementById('return-value');
+
+    //dialogPolyfill.registerDialog(modal);
+    open.addEventListener('click', () => {
+      modal.showModal();
+    });
+
+    likeIt.addEventListener('click', () => {
+      modal.close('Like it');
+    });
+
+    loveIt.addEventListener('click', () => {
+      modal.close('Love it');
+    });
+
+    close.addEventListener('click', () => {
+      modal.close('cancelled');
+    })
+
+    modal.addEventListener('cancel', () => {
+      modal.close('cancelled');
+    });
+
+    // close when clicking on backdrop
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        modal.close('cancelled');
+      }
+    });
+
+    // display returnValue
+    modal.addEventListener('close', () => {
+      returnSpan.innerHTML = modal.returnValue;
+    });
+</script>
+</body>
+</html>

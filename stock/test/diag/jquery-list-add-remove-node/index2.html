@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>jQuery垂直列表插件DEMO演示</title>
+
+<link rel="stylesheet" href="css/jquery.mobile-git.css" />
+<link rel="stylesheet" href="css/editable-listview.css">
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.mobile-git.js"></script>
+<script src="js/collapsible-patched.js"></script>
+<script src="js/editable-listview.js"></script>
+
+</head>
+
+<body style="padding: 20px">
+<div style="padding: 20px">
+	<p>Delete <strong>"Orange"</strong> from the following list of <strong>"Fruits"</strong></p>
+	<ul id="list" data-role="listview">
+		<li>Apple</li>
+		<li>Orange</li>
+		<li>Banana</li>
+		<li>Mango</li>
+	</ul>
+
+	<br>
+
+	<p>Add <strong>"Running"</strong> and <strong>"Surfing"</strong> in the following list</p>
+	<ul id="list2" data-role="listview" data-editable="true" data-editable-type="simple" data-title="Activities" data-empty-title="No Activities" data-button-theme="b" data-button-shadow="false" data-button-corner="false">
+		<li>Running</li>
+		<li>Cycling</li>
+		<li>Surfing</li>
+		<li>Jogging</li>
+	</ul>
+
+	<br>
+
+	<p>An example of <strong>Complex Editable Listview</strong></p>
+	<ul data-role="listview" data-editable="true" data-editable-type="complex" data-editable-form="editing-form" data-title="Fruits" data-empty-title="No Fruits">
+		<li>
+			<a>
+				<h3>Apple</h3>
+				<p><em>Shape:</em> <strong>round</strong></p>
+				<p><em>Color:</em> <strong>red</strong></p>
+			</a>
+		</li>
+		<li>
+			<a>
+				<h3>Pineapple</h3>
+				<p><em>Shape:</em> <strong>oval</strong></p>
+				<p><em>Color:</em> <strong>yellow</strong></p>
+			</a>
+		</li>
+		<li>
+			<a>
+				<h3>Orange</h3>
+				<p><em>Shape:</em> <strong>round</strong></p>
+				<p><em>Color:</em> <strong>orange</strong></p>
+			</a>
+		</li>
+	</ul>
+
+	<form id="editing-form" data-editable-form="true">
+		<input type="text" data-item-name="fruitName" data-item-template="<h3>%%</h3>">
+		<input type="text" data-item-name="fruitShape" data-item-template="<p><em>Shape:</em> <strong>%%</strong></p>">
+		<input type="text" data-item-name="fruitColor" data-item-template="<p><em>Color:</em> <strong>%%</strong></p>">
+		<button class="ui-btn ui-corner-all" data-add-button="true">Add</button>
+		<button class="ui-btn ui-corner-all" data-clear-button="true">Clear</button>
+	</form>
+
+</div>
+
+<script>
+	var $list = $( "#list" ).listview({
+		editable: true,
+//            editableType: "simple",
+//            collapsed: false,
+		title: "Fruits",
+		emptyTitle: "No Fruits"
+	});
+
+//        $("#list3").listview().listview("disable")
+//        console.log($("#list3").listview().listview("dis")[0])
+
+	$("#list3").on('listviewchange', function(e, data) {
+		console.log('listviewchange fired', data)
+	})
+</script>
+
+
+</body>
+</html>

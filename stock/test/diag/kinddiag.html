@@ -1,0 +1,169 @@
+<html>
+<head>
+    <title>diag</title>
+    <style>
+        *{
+        margin:0px;
+        padding:0px;
+        }
+        body{
+        background: #E0E0E0;
+        }
+        #divmain{
+        width: 800px;
+        height: 600px;
+        border:1px solid gray;
+        }
+
+        #divleft, #divindustry{
+        float: left;
+        height:100%;
+        border:1px solid gray;
+        margin:0px auto;/*主面板DIV居中*/
+        }
+
+        #divleft{
+        width: 150px;
+        }
+
+        #divindustry{
+        width: 645px;
+        height: 600px;
+        overflow:scroll; 
+        overflow-x:hidden;
+        }
+
+        #divselect, #divsave{
+        height:50%;
+        border:1px solid gray;
+        }
+
+        p{
+        margin-left:10;
+        }
+
+        ul{
+        border:solid 2px #add9c0;
+        margin-left:10;
+        width:80;
+        float:left;
+        }
+
+        ul li{
+        list-style-type:none;
+        }
+
+        .selected{font-weight:bold; background: #ff99cc; color:#fff;}
+    </style>
+    <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+</head>
+<body>
+    <div id="divmain">
+        <div id="divleft">
+            <div id="divselect">
+                <p><span>股票代码</span><input type="text" name="stockcode" id="stockcode" style="width:130px"></p><br />
+                <p><span>自选类别</span>
+                    <!--<input type="text" name="optiontab" id="optiontab" style="width:130px">-->
+                    <select class="optiontab" id="optiontab" style="width:100%">
+                      <option value="0">选择</option>
+                      <option value="1">5pointweekline</option>
+                      <option value="2">leader</option>
+                      <option value="3">buypoint1</option>
+                      <option value="4">buypoint2</option>
+                      <option value="5">buypoint3</option>
+                      <option value="6">salepoint1</option>
+                    </select>
+                </p><br />
+                <p><span>所有股票</span><br />
+                    <input type="checkbox" name="stockall" id="stockall" style="zoom:150%"/>
+                </p>
+            </div>
+
+            <div id="divsave">
+                <p>
+                    <span>选择结果:</span><br />
+                    <span id="selectkind" style="margin-left:10;color:#ff0000">分类</span><br />
+                    <span id="selectvalue" style="margin-left:10;color:#ff0000">选中值</span>
+                </p><br />
+                <p style="margin-left:20"><button>确定</button></p>
+            </div>
+        </div>
+
+        <div id="divindustry">
+            <p>细分行业</p>
+            <ul class="ulindustry">
+                <li>计算机</li>
+                <li>银行</li>
+                <li>保险</li>
+            </ul>
+            <ul class="ulindustry">
+                <li>计算机</li>
+                <li>银行</li>
+                <li>保险</li>
+            </ul>
+            <ul class="ulindustry">
+                <li>计算机</li>
+                <li>银行</li>
+                <li>保险</li>
+            </ul>
+            <ul class="ulindustry">
+                <li>计算机</li>
+                <li>银行</li>
+                <li>保险</li>
+            </ul>
+            <ul class="ulindustry">
+                <li>计算机</li>
+                <li>银行</li>
+                <li>其他</li>
+            </ul>
+            <ul class="ulindustry">
+                <li>计算机</li>
+                <li>银行</li>
+                <li>保险</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            $(".ulindustry li").click(function() {
+                $(".ulindustry li").siblings('li').removeClass('selected'); 
+                //$(this).siblings('li').removeClass('selected');  // 删除其他兄弟元素的样式
+                $(this).addClass('selected');                            // 添加当前元素的样式
+                console.log($(this).text());
+                $("#selectkind").html('细分行业');
+                $("#selectvalue").html($(this).text());
+            });
+            $("#stockcode").bind("input propertychange",function(event){
+                //console.log($("#input1").val())
+                $("#selectkind").html('股票代码');
+                $("#selectvalue").html($(this).val());
+            });
+            $("#optiontab").change(function(){ //code...//为Select添加事件，当选择其中一项时触发
+                if (0 == $(this).val()){
+                    return;
+                }
+                $("#selectkind").html('自选类别');
+                $("#selectvalue").html($(this).find("option:selected").text());
+            /*
+            1. $("#select_id").change(function(){//code...}); //为Select添加事件，当选择其中一项时触发
+            2. var checkText=$("#select_id").find("option:selected").text(); //获取Select选择的
+            3. var checkValue=$("#select_id").val(); //获取Select选择的Value
+            4. var checkIndex=$("#select_id ").get(0).selectedIndex; //获取Select选择的索引值
+            5. var maxIndex=$("#select_id option:last").attr("index"); //获取Select最大的索引值
+            */
+            }); 
+            $("#stockall").click(function () {
+               if ($(this).prop("checked")) {
+                   //alert("选中");
+                   $("#selectkind").html('所有股票');
+                   $("#selectvalue").html('是');
+               } else {
+                   //alert("没有选中");
+                   $("#selectkind").html('分类');
+                   $("#selectvalue").html('选中值');
+               }
+           });
+        }); 
+    </script>
+</body>
+</html>

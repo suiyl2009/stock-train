@@ -1,0 +1,5 @@
+{"batch":{"absolute":2,"color":[65535,255,4259584,8388608,128,16711935],"count":6,"line":"Revenue","tradepoint":true},
+"date":20141010,
+"isreportdate":0,
+"list":["Code","Revenue","DayPR","DayPR2","NetAssertRate","ClosingDate","DeclarationDate","DayDate","SubIndustry","NetProfit"],
+"single":{"absolute":false,"line":[{"color":16777215,"type":"ROE"},{"color":8421631,"type":"Revenue"}],"tradepoint":true}}

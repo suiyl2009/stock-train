@@ -1,0 +1,17 @@
+<script>
+    if(!window.localStorage){
+        alert("浏览器支持localstorage");
+    }else{
+        var localStorage = window.localStorage;
+        var jsonData = { 'name': '张三', 'age': 29 }; // 定义一个JSON对象
+        var str_jsonData = JSON.stringify(jsonData);
+        console.log(typeof (str_jsonData)); // string
+        localStorage.setItem('localData', str_jsonData); // 存储字符串数据到本地
+        var getLocalData = localStorage.getItem('localData'); // 读取字符串数据
+        console.log(typeof (getLocalData)); // string
+        var jsonObj = JSON.parse(getLocalData);
+        console.log(typeof (jsonObj)); // obj
+        console.log(jsonObj.age); // 29
+        console.log(jsonObj.name);
+    }
+</script>

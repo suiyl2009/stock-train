@@ -1,0 +1,1 @@
+g++ -I ../mysql-connector-c++/include/ -o test_mysql -g test_mysql.cpp -L ../mysql-connector-c++/lib/ -lmysqlcppconn

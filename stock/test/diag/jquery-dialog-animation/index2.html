@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jQuery带动画的超炫酷弹出对话框DEMO演示</title>
+<link href="src/normalize.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="src/animate.min.css">
+<link rel="stylesheet" href="src/jquery.gDialog.css">
+<style>
+button { border:0;}
+.container { margin:50px auto; max-width:728px;text-align:center;font-family:Arial;}
+.btn {background-color:#ED5565; color:#fff; padding:20px; margin:10px 30px; border-radius:5px; border-bottom:3px solid #DA4453;}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>jQuery gDialog Plugin Exampels</h1>
+<button class="btn demo-1">Alert Dialog Box</button>
+<button class="btn demo-2">Prompt Dialog Box</button>
+<button class="btn demo-3">Prompt Dialog Box</button>
+</div>
+<script src="src/jquery.js"></script>
+<script src="src/jquery.gDialog.js"></script>
+<script>
+$('.demo-1').click(function(){
+  $.gDialog.alert("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse libero erat, scelerisque sit amet dolor nec, euismod feugiat massa.", {
+    title: "Alert Dialog Box",
+    animateIn: "bounceIn",
+    animateOut: "bounceOut"
+  });
+});  
+$('.demo-2').click(function(){
+  $.gDialog.prompt("站长素材", "sc.chinaz.com", {
+    title: "Prompt Dialog Box",
+    required: true,
+	animateIn : "rollIn",
+    animateOut: "rollOut"
+  });
+}); 
+$('.demo-3').click(function(){
+  $.gDialog.confirm("Are You Sure?", {
+    title: "Confirm Dialog Box",
+	animateIn : "bounceInDown",
+    animateOut: "bounceOutUp"
+  });
+});                         
+</script>
+
+</body>
+</html>

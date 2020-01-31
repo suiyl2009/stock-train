@@ -1,0 +1,3282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/just_shunjian/article/details/78677054"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>ubuntu16.04 heirloom-mailx 通过外部SMTP服务器发送邮件 - lvfk - CSDN博客</title>
+
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-8e7c37444f.min.css">
+    
+        
+    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-9b39979775.min.css">
+
+    <script type="text/javascript">
+        var username = "Just_shunjian";
+        var blog_address = "https://blog.csdn.net/just_shunjian";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = "";
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "http://passport.csdn.net/account/login?from=https://blog.csdn.net/just_shunjian/article/details/78677054"
+        var blogUrl = "https://blog.csdn.net/";
+        //页面皮肤样式
+        var curSkin = "skin3-template";
+        // 第四范式所需数据
+        var articleTitles = "ubuntu16.04 heirloom-mailx 通过外部SMTP服务器发送邮件 - lvfk";
+        var articleID = "78677054";
+
+        var nickName = "lvfk";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.1.1/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<!-- nodata 第三栏接口无数据时样式不变 -->
+<body class="nodata"> 
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript">
+	// 容错处理
+	var NEWS_FEED = function(){}
+</script>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script type="text/javascript" src="//g.csdnimg.cn/copyright/1.0.3/copyright.js"></script>
+<div style="display:none;">
+	<img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+</div>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/chart-3456820cac.css" />
+
+
+
+<script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix" id="mainBox">
+		<div class="recommend-right">
+  <ul class="recommend-fixed-box">
+    
+  </ul>
+</div>
+    <main>
+        <div class="blog-content-box">
+	<div class="article-header-box">
+		<div class="article-header">
+			<div class="article-title-box">
+				<span class="article-type type-1 float-left">原</span>				<h1 class="title-article">ubuntu16.04 heirloom-mailx 通过外部SMTP服务器发送邮件</h1>
+			</div>
+			<div class="article-info-box">
+				<div class="article-bar-top">
+																				<span class="time">2017年11月30日 15:55:07</span>
+					<a class="follow-nickName" href="https://me.csdn.net/Just_shunjian" target="_blank">lvfk</a>
+						<span class="read-count">阅读数：1643</span>
+						
+														<span class="tags-box artic-tag-box">
+								<span class="label">标签：</span>
+																<a data-track-click='{"mod":"popu_626","con":"smtp"}' data-track-view='{"mod":"popu_626","con":"smtp"}' class="tag-link" href="http://so.csdn.net/so/search/s.do?q=smtp&t=blog" target="_blank">smtp																<a data-track-click='{"mod":"popu_626","con":"阿里云"}' data-track-view='{"mod":"popu_626","con":"阿里云"}' class="tag-link" href="http://so.csdn.net/so/search/s.do?q=阿里云&t=blog" target="_blank">阿里云																</a>
+							</span>
+																					<div class="tags-box space">
+								<span class="label">个人分类：</span>
+																<a class="tag-link" href="https://blog.csdn.net/Just_shunjian/article/category/7319001"  target="_blank">smtp																</a>
+							</div>
+																								</div>
+				<div class="operating">
+														</div>
+			</div>
+		</div>
+	</div>
+	<article class="baidu_pl">
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+								<div class="article-copyright">
+					版权声明：本文为博主原创文章，未经博主允许不得转载。					https://blog.csdn.net/Just_shunjian/article/details/78677054				</div>
+								            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-f76675cdea.css" />
+						<div class="htmledit_views">
+                
+<p>搭建邮件发送这么简单的一个功能，我在阿里云ECS上来回倒腾了几天，并且先后使用sendmail、postfix、heirloom-mailx等多种发送邮件的软件。但总是出现各种各样的错误。查找了百度和谷歌以及阿里云开放论坛，终于搞定了，网上的资料好分散，查来查去都是相同内容，索引我把我搭建的经过写出来，希望以后别有人掉坑里了</p>
+<p>下面我直接描述邮件发送成功的经过：</p>
+<p>1、安装heirloom-mailx</p>
+<p><span></span>apt install heirloom-mailx</p>
+<p><br /></p>
+<p>2、配置外部SMTP</p>
+<p><span></span>我的ECS是Ubuntu16.04 ,配置文件为/etc/s-nail.rc，把下面几行放置在最后</p>
+<p>如果不配置端口发送可以使用</p>
+<p></p><pre><code class="language-html">set from=xxx@163.com
+set smtp=smtp.163.com
+set smtp-auth-user=xxx@163.com
+set smtp-auth-password=123456
+set smtp-auth=login</code></pre><br />
+如果配置端口则
+<p></p><pre><code class="language-html">set from="xxx@163.com"
+set smtp="smtps://smtp.163.com:465"
+set smtp-auth-user="xxxm@163.com"
+set smtp-auth-password="123456"
+set smtp-auth=login</code></pre><br />
+或者
+<p></p><pre><code class="language-html">set from="xxx@163.com"
+set smtp="smtps://smtp.163.com:465"
+set smtp-auth-user="xxxm@163.com"
+set smtp-auth-password="123456"
+set smtp-auth=login</code></pre><br /><br /><br />
+注：以上三种配置都可以尝试
+<p></p>
+<p><br /></p>
+<p>3、发送</p>
+echo 'this is test' | mail -s "test email." 123@qq.com
+<p><br /><br /></p>
+            </div>
+                </div>
+									<div class="hide-article-box text-center">
+						<a class="btn" id="btn-readmore" data-track-view='{"mod":"popu_376","con":",https://blog.csdn.net/just_shunjian/article/details/78677054,"}' data-track-click='{"mod":"popu_376","con":",https://blog.csdn.net/just_shunjian/article/details/78677054,"}'>阅读更多</a>
+					</div>
+					<script>
+						(function(){
+							function setArticleH(btnReadmore,posi){
+								var winH = $(window).height();
+								var articleBox = $("div.article_content");
+								var artH = articleBox.height();
+								if(artH > winH*posi){
+									articleBox.css({
+										'height':winH*posi+'px',
+										'overflow':'hidden'
+									})
+									btnReadmore.click(function(){
+										articleBox.removeAttr("style");
+										$(this).parent().remove();
+									})
+								}else{
+									btnReadmore.parent().remove();
+								}
+							}
+							var btnReadmore = $("#btn-readmore");
+							if(btnReadmore.length>0){
+								if(currentUserName){
+									setArticleH(btnReadmore,3);
+								}else{
+									setArticleH(btnReadmore,1.2);
+								}
+							}
+						})()
+					</script>
+					</article>
+	
+</div>
+<script>
+		$(".MathJax").remove();
+		if($('div.markdown_views pre.prettyprint code.hljs').length > 0 ){
+				$('div.markdown_views')[0].className = 'markdown_views';
+		}
+</script>
+        <div id="dmp_ad_58"><div id="kp_box_402" data-pid="58" data-track-view='{"mod":"kp_popu_402","con":",,"}'><div style="width:100%;background:#fff;border:3px solid #fff;">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<div id="three_ad1" class="mediav_ad" ></div>
+<script>
+                                               NEWS_FEED({
+                w: 900,
+                h : 100,
+                showid : 'ztvJV8',
+                placeholderId: "three_ad1",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 0,
+                    imageWidth: 90,
+                    imageHeight: 68,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 16,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Microsoft Yahei',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 12,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 20,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 20,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script>
+<div></div></div>        <a id="commentBox"></a>
+<div class="comment-box">
+	
+	<div class="comment-edit-box d-flex">
+		<a id="commentsedit"></a>
+		<div class="user-img">
+			<a href="javascript:void(0);" target="_blank">
+				<img class="show_loginbox" src="//g.csdnimg.cn/static/user-img/anonymous-User-img.png">
+			</a>
+		</div>
+		<form id="commentform">
+			<input type="hidden" id="comment_replyId">
+			<textarea class="comment-content" name="comment_content" id="comment_content" placeholder="想对作者说点什么"></textarea>
+			<div class="opt-box"> <!-- d-flex -->
+				<div id="ubbtools" class="add_code">
+					<a href="#insertcode" code="code" target="_self"><i class="icon iconfont icon-daima"></i></a>
+				</div>
+				<input type="hidden" id="comment_replyId" name="comment_replyId">
+				<input type="hidden" id="comment_userId" name="comment_userId" value="">
+				<input type="hidden" id="commentId" name="commentId" value="">
+				<div style="display: none;" class="csdn-tracking-statistics tracking-click" data-mod="popu_384"><a href="#" target="_blank" class="comment_area_btn">发表评论</a></div>
+				<div class="dropdown" id="myDrap">
+					<a class="dropdown-face d-flex align-items-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<div class="txt-selected text-truncate">添加代码片</div>
+					<svg class="icon d-block" aria-hidden="true">
+						<use xlink:href="#csdnc-triangledown"></use>
+					</svg>
+					</a>
+					<ul class="dropdown-menu" id="commentCode" aria-labelledby="drop4">
+						<li><a data-code="html">HTML/XML</a></li>
+						<li><a data-code="objc">objective-c</a></li>
+						<li><a data-code="ruby">Ruby</a></li>
+						<li><a data-code="php">PHP</a></li>
+						<li><a data-code="csharp">C</a></li>
+						<li><a data-code="cpp">C++</a></li>
+						<li><a data-code="javascript">JavaScript</a></li>
+						<li><a data-code="python">Python</a></li>
+						<li><a data-code="java">Java</a></li>
+						<li><a data-code="css">CSS</a></li>
+						<li><a data-code="sql">SQL</a></li>
+						<li><a data-code="plain">其它</a></li>
+					</ul>
+				</div>  
+				<div class="right-box">
+					<span id="tip_comment" class="tip">还能输入<em>1000</em>个字符</span>
+					<input type="submit" class="btn btn-sm btn-red btn-comment" value="发表评论">
+				</div>
+			</div>
+		</form>
+	</div>
+
+		<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>
+        <div class="recommend-box">
+            		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/fz2543122681/article/details/40991247,BlogCommendFromBaidu_0"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/fz2543122681/article/details/40991247,BlogCommendFromBaidu_0"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/fz2543122681/article/details/40991247" target="_blank" title="Ubuntu 使用 heirloom-mail 调用外部邮箱 SMTP 服务器发送邮件 - 专注大规模数据处理">
+				<h4 class="text-truncate oneline">
+						Ubuntu 使用 heirloom-mail 调用<em>外部</em>邮箱 <em>SMTP</em> <em>服务器</em><em>发送邮件</em> - 专注大规模数据处理				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/F/2/1/3_fz2543122681.jpg" alt="fz2543122681" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">fz2543122681</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">11-10</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							2728</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/fz2543122681/article/details/40991247" target="_blank" title="Ubuntu 使用 heirloom-mail 调用外部邮箱 SMTP 服务器发送邮件 - 专注大规模数据处理">
+							<span class="desc oneline">网易开放POP3/SMTP/IMAP服务能让你在本地客户端(Foxmail/Thunderbird)上更好地收发邮件. 
+SMTP认证的目的是为了使用户避免受到垃圾邮件的侵扰,简单地说就是要求必须在...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/fz2543122681">来自：	<span class="blog_title"> 专注大规模数据处理</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Simpletwt/article/details/53811874,BlogCommendFromBaidu_1"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Simpletwt/article/details/53811874,BlogCommendFromBaidu_1"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/Simpletwt/article/details/53811874" target="_blank" title="shell下使用mailx发送邮件 - Simpletwt的博客">
+				<h4 class="text-truncate oneline">
+						shell下使用mailx<em>发送邮件</em> - Simpletwt的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/7/B/2/3_simpletwt.jpg" alt="Simpletwt" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">Simpletwt</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">12-22</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							2809</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Simpletwt/article/details/53811874" target="_blank" title="shell下使用mailx发送邮件 - Simpletwt的博客">
+							<span class="desc oneline">如果不能直接使用mailx，需要先下载安装mailx；
+
+wget http://ftp.debian.org/debian/pool/main/h/heirloom-mailx/heirloom...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/Simpletwt">来自：	<span class="blog_title"> Simpletwt的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/rentingting1/article/details/42971289,BlogCommendFromBaidu_2"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/rentingting1/article/details/42971289,BlogCommendFromBaidu_2"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/rentingting1/article/details/42971289" target="_blank" title="ubuntu使用mailx利用SMTP发送邮件 - 程序媛与狗的专栏">
+				<h4 class="text-truncate oneline">
+						ubuntu使用mailx利用<em>SMTP</em><em>发送邮件</em> - 程序媛与狗的专栏				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/0/2/3/3_rentingting1.jpg" alt="rentingting1" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">rentingting1</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">01-21</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							3925</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/rentingting1/article/details/42971289" target="_blank" title="ubuntu使用mailx利用SMTP发送邮件 - 程序媛与狗的专栏">
+							<span class="desc oneline">转载：http://www.blogjava.net/jasmine214--love/archive/2010/10/09/334102.html
+Linux下mail利用外部邮箱发送邮件的方法:
+...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/rentingting1">来自：	<span class="blog_title"> 程序媛与狗的专栏</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_78" data-pid="59" data-track-view='{"mod":"kp_popu_78","con":",,"}'><script type="text/javascript" src="//rabc1.iteye.com/production/res/rxjg.js?pkcgstj=jm"></script></div></div>
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/sohu_2011/article/details/42065733,BlogCommendFromBaidu_3"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sohu_2011/article/details/42065733,BlogCommendFromBaidu_3"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/sohu_2011/article/details/42065733" target="_blank" title="LINUX下通过外部SMTP发邮件 - grefen">
+				<h4 class="text-truncate oneline">
+						LINUX下<em>通过</em><em>外部</em><em>SMTP</em>发邮件 - grefen				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/8/9/A/3_sohu_2011.jpg" alt="sohu_2011" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">sohu_2011</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">12-21</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							1.2万</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/sohu_2011/article/details/42065733" target="_blank" title="LINUX下通过外部SMTP发邮件 - grefen">
+							<span class="desc oneline">安装mailx，如下：
+grefen@ubuntu:~$ sudo apt-get install mailx
+Reading package lists... Done
+Building depen...</span>
+						</a>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zgf19930504/article/details/51930501,BlogCommendFromBaidu_4"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zgf19930504/article/details/51930501,BlogCommendFromBaidu_4"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zgf19930504/article/details/51930501" target="_blank" title="19. ubuntu 16.04 LTS 安装mailx - 键盘上的幽灵,">
+				<h4 class="text-truncate oneline">
+						19. ubuntu 16.04 LTS 安装mailx - 键盘上的幽灵,				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/8/9/B/3_zgf19930504.jpg" alt="zgf19930504" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">zgf19930504</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">07-17</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							3161</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zgf19930504/article/details/51930501" target="_blank" title="19. ubuntu 16.04 LTS 安装mailx - 键盘上的幽灵,">
+							<span class="desc oneline">在linux 运维过程中，经常会写一些脚本监控一些服务器的状态，如监控redis 主从切换，redis 宕机等，当事件发生时，应该发送邮件通知到相对应的管理员，因此就需要搭建邮件服务，使linux 能...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/zgf19930504">来自：	<span class="blog_title"> 键盘上的幽灵,</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/heng4719/article/details/78885811,BlogCommendFromBaidu_5"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/heng4719/article/details/78885811,BlogCommendFromBaidu_5"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/heng4719/article/details/78885811" target="_blank" title="阿里云Ubuntu下命令行发送邮件——mailx - heng4719的博客">
+				<h4 class="text-truncate oneline">
+						阿里云Ubuntu下命令行<em>发送邮件</em>——mailx - heng4719的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/E/1/B/3_heng4719.jpg" alt="heng4719" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">heng4719</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">12-24</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							1220</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/heng4719/article/details/78885811" target="_blank" title="阿里云Ubuntu下命令行发送邮件——mailx - heng4719的博客">
+							<span class="desc oneline">安装MAILX      sudo apt-get install heirloom-mailx配置文件编辑Ubuntu中 etc/s-nail.rc       //其他系统中可能叫nail.rc ...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/heng4719">来自：	<span class="blog_title"> heng4719的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/SeanChina/article/details/79652753,BlogCommendFromBaidu_6"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/SeanChina/article/details/79652753,BlogCommendFromBaidu_6"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/SeanChina/article/details/79652753" target="_blank" title="Ubuntu 16.04.3 LTS 下通过mail发送qq邮件 - SeanChina的博客">
+				<h4 class="text-truncate oneline">
+						Ubuntu 16.04.3 LTS 下<em>通过</em>mail发送qq邮件 - SeanChina的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/C/2/0/3_seanchina.jpg" alt="SeanChina" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">SeanChina</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">03-22</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							801</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/SeanChina/article/details/79652753" target="_blank" title="Ubuntu 16.04.3 LTS 下通过mail发送qq邮件 - SeanChina的博客">
+							<span class="desc oneline">根据网上的教程，修改/etc/s-nail.rc中来添加外部SMTP服务器如下：set from=xxxxxxxxx@qq.com
+set smtp=&amp;quot;smtp.qq.com&amp;quot;
+s...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/SeanChina">来自：	<span class="blog_title"> SeanChina的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/chijiaodaxie/article/details/77893464,BlogCommendFromBaidu_7"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/chijiaodaxie/article/details/77893464,BlogCommendFromBaidu_7"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/chijiaodaxie/article/details/77893464" target="_blank" title="Ubuntu mail命令发送邮件 - chijiaodaxie的博客">
+				<h4 class="text-truncate oneline">
+						Ubuntu mail命令<em>发送邮件</em> - chijiaodaxie的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/9/9/7/3_chijiaodaxie.jpg" alt="chijiaodaxie" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">chijiaodaxie</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">09-08</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							17.4万</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/chijiaodaxie/article/details/77893464" target="_blank" title="Ubuntu mail命令发送邮件 - chijiaodaxie的博客">
+							<span class="desc oneline">ubuntu server 14.04 从命令行发邮件安装mailutilssudo apt-get install mailutils接下来进行默认安装就行了。Postfix Configurati...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/chijiaodaxie">来自：	<span class="blog_title"> chijiaodaxie的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_43" data-pid="60" data-track-view='{"mod":"kp_popu_43","con":",,"}'><div id="three_ad8" class="mediav_ad" ></div>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script>
+                                               NEWS_FEED({
+                w: 900,
+                h : 84,
+                showid : 'Afihld',
+                placeholderId: "three_ad8",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 3,
+                    imageWidth: 90,
+                    imageHeight: 60,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 16,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Microsoft Yahei',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 12,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 10,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script></div></div>
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/caijiapeng0102/article/details/81239920,BlogCommendFromBaidu_8"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/caijiapeng0102/article/details/81239920,BlogCommendFromBaidu_8"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/caijiapeng0102/article/details/81239920" target="_blank" title="ubuntu16 使用外部smtp  发送网络邮件 - caijiapeng0102的博客">
+				<h4 class="text-truncate oneline">
+						ubuntu16 使用<em>外部</em><em>smtp</em>  发送网络邮件 - caijiapeng0102的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/A/A/D/3_caijiapeng0102.jpg" alt="caijiapeng0102" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">caijiapeng0102</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">07-27</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							267</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/caijiapeng0102/article/details/81239920" target="_blank" title="ubuntu16 使用外部smtp  发送网络邮件 - caijiapeng0102的博客">
+							<span class="desc oneline">前言
+
+ 反正网上各种坑，很多都没有讲清楚，只是大概讲一下，一笔带过就没了，结果根本就不行。
+
+安装依赖
+
+ubuntu中使用外部smtp发送邮件功能，不需要安装那么多东西，只需要heirloom-m...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/caijiapeng0102">来自：	<span class="blog_title"> caijiapeng0102的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+			<div class="recommend-item-box type_hot_word">
+									<div class="content clearfix oneline">
+				<h5 class="float-left">相关热词</h5>
+				<div class="float-left">
+									<span>
+						<a href="https://www.csdn.net/gather_2a/MtzaEg0sMTctYmxvZwO0O0OO0O0O.html" target="_blank">
+						c++实现发送邮件smtp</a>
+					</span>
+									<span>
+						<a href="https://www.csdn.net/gather_21/MtjaQgxsNjItYmxvZwO0O0OO0O0O.html" target="_blank">
+						c# smtp 发送邮件</a>
+					</span>
+									<span>
+						<a href="https://www.csdn.net/gather_29/MtjaAgxsNjgtYmxvZwO0O0OO0O0O.html" target="_blank">
+						c# qq服务器发送邮件</a>
+					</span>
+									<span>
+						<a href="https://www.csdn.net/gather_2a/MtTakg4sMjMyMy1ibG9n.html" target="_blank">
+						android sdk ubuntu16.04</a>
+					</span>
+									<span>
+						<a href="https://www.csdn.net/gather_26/MtTakg4sNTc1NS1ibG9n.html" target="_blank">
+						android通过http连接node.js服务器</a>
+					</span>
+								</div>
+			</div>
+					</div>
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/lazyRabbitLLL/article/details/79718450,BlogCommendFromCidStrategy_9"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/lazyRabbitLLL/article/details/79718450,BlogCommendFromCidStrategy_9"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/lazyRabbitLLL/article/details/79718450" target="_blank" title="linux系统使用mailx发送邮件 - lazyRabbit的博客">
+				<h4 class="text-truncate oneline">
+						linux系统使用mailx<em>发送邮件</em> - lazyRabbit的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/1/6/C/3_lazyrabbitlll.jpg" alt="lazyRabbitLLL" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">lazyRabbitLLL</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">03-27</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							329</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/lazyRabbitLLL/article/details/79718450" target="_blank" title="linux系统使用mailx发送邮件 - lazyRabbit的博客">
+							<span class="desc oneline">首先安装mailxyum install mailx然后mail进行配置vim /etc/mail.rc在末尾添加以下内容set from=***@qq.com#设置邮箱和名称
+set smtp=sm...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/lazyRabbitLLL">来自：	<span class="blog_title"> lazyRabbit的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+            <div class="recommend-item-box blog-expert-recommend-box">
+			<div class="d-flex">
+				<div class="blog-expert-recommend">
+					<div class="blog-expert">
+						<div class="blog-expert-flexbox"></div>
+					</div>
+				</div>
+				<div class="blog-expert-load-new" data-index="3">
+					<svg version="1.1" viewBox="0 0 200 200" style="enable-background:new 0 0 200 200;" xml:space="preserve">
+					<path d="M142.5,57.5c-1.3-1.2-2.1-3.3-2.1-5.4c0-4.2,3.3-7.5,7.5-7.5h19.6c4.2,0,7.5,3.3,7.5,7.5s-3.3,7.5-7.5,7.5h-4.2
+						C170.8,71.2,175,85,175,100c0,41.7-33.8,75-75,75c-4.2,0-7.5-3.3-7.5-7.5c0-4.2,3.3-7.5,7.5-7.5c33.3,0,60-27.1,60-60
+						C160,83.7,153.8,68.7,142.5,57.5L142.5,57.5z M57.5,142.5c1.2,1.2,2.1,3.3,2.1,5.4c0,4.2-3.3,7.5-7.5,7.5H32.5
+						c-4.2,0-7.5-3.3-7.5-7.5c0-4.2,3.3-7.5,7.5-7.5h4.2C29.2,128.8,25,115,25,100c0-41.7,33.7-75,75-75c4.2,0,7.5,3.3,7.5,7.5
+						S104.2,40,100,40c-33.3,0-60,27.1-60,60C40,116.2,46.2,131.2,57.5,142.5z"/>
+					</svg>
+					<span>换一批</span>
+				</div>
+			</div>
+        </div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/lqy461929569/article/details/79458979,BlogCommendFromCidStrategy_10"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/lqy461929569/article/details/79458979,BlogCommendFromCidStrategy_10"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/lqy461929569/article/details/79458979" target="_blank" title="linux下通过配置mailx和第三方邮箱 发送邮件 - Ray的博客">
+				<h4 class="text-truncate oneline">
+						linux下<em>通过</em>配置mailx和第三方邮箱 <em>发送邮件</em> - Ray的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/A/A/D/3_lqy461929569.jpg" alt="lqy461929569" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">lqy461929569</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">03-06</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							760</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/lqy461929569/article/details/79458979" target="_blank" title="linux下通过配置mailx和第三方邮箱 发送邮件 - Ray的博客">
+							<span class="desc oneline">        使用mailx+postfix 通过服务器发送的邮件经常会被归为垃圾邮件，甚至会被拒收，所以需要利用第三方邮箱账户作为发件人来发送邮件。部署系统为Centos7。确认postfix是否...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/lqy461929569">来自：	<span class="blog_title"> Ray的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/fz2543122681/article/details/40987801,BlogCommendFromCidStrategy_11"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/fz2543122681/article/details/40987801,BlogCommendFromCidStrategy_11"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/fz2543122681/article/details/40987801" target="_blank" title="CentOS 6.5 and Ubuntu 14.04 使用外部邮箱发送邮件 - 专注大规模数据处理">
+				<h4 class="text-truncate oneline">
+						CentOS 6.5 and Ubuntu 14.04 使用<em>外部</em>邮箱<em>发送邮件</em> - 专注大规模数据处理				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/F/2/1/3_fz2543122681.jpg" alt="fz2543122681" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">fz2543122681</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">11-10</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							1.4万</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/fz2543122681/article/details/40987801" target="_blank" title="CentOS 6.5 and Ubuntu 14.04 使用外部邮箱发送邮件 - 专注大规模数据处理">
+							<span class="desc oneline">我们可以使用外部邮箱（163，126，gmail，139等等）为我们发邮件
+
+for CentOS 6.5
+
+
+yum -y install mailx
+
+
+
+
+vi /etc/m...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/fz2543122681">来自：	<span class="blog_title"> 专注大规模数据处理</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_36850246/article/details/79462595,BlogCommendFromCidStrategy_12"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_36850246/article/details/79462595,BlogCommendFromCidStrategy_12"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_36850246/article/details/79462595" target="_blank" title="linux 下mailx使用方法以及阿里云无法使用mailx解决方法 - qq_36850246的博客">
+				<h4 class="text-truncate oneline">
+						linux 下mailx使用方法以及阿里云无法使用mailx解决方法 - qq_36850246的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/9/F/5/3_qq_36850246.jpg" alt="qq_36850246" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">qq_36850246</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">03-06</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							312</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_36850246/article/details/79462595" target="_blank" title="linux 下mailx使用方法以及阿里云无法使用mailx解决方法 - qq_36850246的博客">
+							<span class="desc oneline">linux mailx使用方法： 1 关闭掉默认安装的邮件服务器     centos 6版本：     /etc/init.d/sendmail stop     /etc/init.d/postf...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/qq_36850246">来自：	<span class="blog_title"> qq_36850246的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_557" data-pid="61" data-track-view='{"mod":"kp_popu_557","con":",,"}'><div id="three_ad13" class="mediav_ad" ></div>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script>
+                                               NEWS_FEED({
+                w: 852,
+                h : 60,
+                showid : 'GNKXx7',
+                placeholderId: "three_ad13",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 3,
+                    imageWidth: 90,
+                    imageHeight: 60,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Microsoft Yahei',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 0,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script></div></div>
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/sunnykaho/article/details/4927178,BlogCommendFromCidStrategy_13"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sunnykaho/article/details/4927178,BlogCommendFromCidStrategy_13"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/sunnykaho/article/details/4927178" target="_blank" title="【C++】【网络】利用Socket 编写SMTP 发送邮件程序 - Kaho的专栏">
+				<h4 class="text-truncate oneline">
+						【C++】【网络】利用Socket 编写<em>SMTP</em> <em>发送邮件</em>程序 - Kaho的专栏				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/7/E/5/3_sunnykaho.jpg" alt="sunnykaho" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">sunnykaho</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">12-02</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							5914</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/sunnykaho/article/details/4927178" target="_blank" title="【C++】【网络】利用Socket 编写SMTP 发送邮件程序 - Kaho的专栏">
+							<span class="desc oneline">#include #include #include #include using namespace std;#define WSWENS MAKEWORD(2,0)int main(){	sock...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/sunnykaho">来自：	<span class="blog_title"> Kaho的专栏</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/stwstw0123/article/details/47130293,BlogCommendFromBaidu_14"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/stwstw0123/article/details/47130293,BlogCommendFromBaidu_14"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/stwstw0123/article/details/47130293" target="_blank" title="Ubuntu之邮件服务器 - stwstw0123的专栏">
+				<h4 class="text-truncate oneline">
+						Ubuntu之邮件<em>服务器</em> - stwstw0123的专栏				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/9/6/7/3_stwstw0123.jpg" alt="stwstw0123" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">stwstw0123</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">07-29</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							9395</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/stwstw0123/article/details/47130293" target="_blank" title="Ubuntu之邮件服务器 - stwstw0123的专栏">
+							<span class="desc oneline">首先说一下此方法的局限
+Postfix发送；Dovecot接收；SquirrelMail运行于nginx，为网页客户端
+邮件账户为Ubuntu实际用户，不支持虚拟账户
+如果不与DNS结合，就会导致对于...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/stwstw0123">来自：	<span class="blog_title"> stwstw0123的专栏</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/oolocal/article/details/52861583,BlogCommendFromBaidu_15"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/oolocal/article/details/52861583,BlogCommendFromBaidu_15"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/oolocal/article/details/52861583" target="_blank" title="Ubuntu搭建简易Postfix邮箱服务器 - oolocal的博客">
+				<h4 class="text-truncate oneline">
+						Ubuntu搭建简易Postfix邮箱<em>服务器</em> - oolocal的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/D/F/B/3_oolocal.jpg" alt="oolocal" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">oolocal</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">10-19</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							5748</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/oolocal/article/details/52861583" target="_blank" title="Ubuntu搭建简易Postfix邮箱服务器 - oolocal的博客">
+							<span class="desc oneline">本文转载自https://www.linuxdashen.com/ubuntu%E6%90%AD%E5%BB%BA%E7%AE%80%E6%98%93postfix%E9%82%AE%E7%AE%B1...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/oolocal">来自：	<span class="blog_title"> oolocal的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/psh2009/article/details/9280713,BlogCommendFromBaidu_16"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/psh2009/article/details/9280713,BlogCommendFromBaidu_16"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/psh2009/article/details/9280713" target="_blank" title="ubuntu下命令行发送邮件 - psh2009的专栏">
+				<h4 class="text-truncate oneline">
+						ubuntu下命令行<em>发送邮件</em> - psh2009的专栏				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/D/9/8/3_psh2009.jpg" alt="psh2009" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">psh2009</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">07-09</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							9621</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/psh2009/article/details/9280713" target="_blank" title="ubuntu下命令行发送邮件 - psh2009的专栏">
+							<span class="desc oneline">文章主要是参考http://www.cnblogs.com/276815076/archive/2011/10/11/2207214.html
+
+验证发送成功，请大胆尝试，但后果自负哈。
+不用说...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/psh2009">来自：	<span class="blog_title"> psh2009的专栏</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/sinat_29145035/article/details/80415698,BlogCommendFromBaidu_17"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sinat_29145035/article/details/80415698,BlogCommendFromBaidu_17"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/sinat_29145035/article/details/80415698" target="_blank" title="linux学习 之 ubuntu下用postfix搭建邮件服务器 - sinat_29145035的博客">
+				<h4 class="text-truncate oneline">
+						linux学习 之 ubuntu下用postfix搭建邮件<em>服务器</em> - sinat_29145035的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/5/3/B/3_sinat_29145035.jpg" alt="sinat_29145035" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">sinat_29145035</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">05-23</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							317</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/sinat_29145035/article/details/80415698" target="_blank" title="linux学习 之 ubuntu下用postfix搭建邮件服务器 - sinat_29145035的博客">
+							<span class="desc oneline">1，安装 postfixsudo apt-get install postfix安装postfix，配置界面出来后选择Internet Site，System mail name填写 名称2，安装一个...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/sinat_29145035">来自：	<span class="blog_title"> sinat_29145035的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_556" data-pid="62" data-track-view='{"mod":"kp_popu_556","con":",,"}'><div id="three_ad18" class="mediav_ad" ></div>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script>
+                                               NEWS_FEED({
+                w: 852,
+                h : 60,
+                showid : 'Afihld',
+                placeholderId: "three_ad18",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 3,
+                    imageWidth: 90,
+                    imageHeight: 60,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Microsoft Yahei',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 0,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script></div></div>
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_34705562/article/details/79429043,BlogCommendFromBaidu_18"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_34705562/article/details/79429043,BlogCommendFromBaidu_18"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_34705562/article/details/79429043" target="_blank" title="zabbix设置外部邮箱发送报警邮件 - 疯狂的浣熊的博客">
+				<h4 class="text-truncate oneline">
+						zabbix设置<em>外部</em>邮箱发送报警邮件 - 疯狂的浣熊的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/5/9/3/3_qq_34705562.jpg" alt="qq_34705562" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">qq_34705562</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">03-03</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							195</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_34705562/article/details/79429043" target="_blank" title="zabbix设置外部邮箱发送报警邮件 - 疯狂的浣熊的博客">
+							<span class="desc oneline">设置触发脚本:1.在zabbix-server linux机器上安装 heirloom-mailx2.ubuntu下设置mailx的文件是/etc/nail.rcvim /etc/nail.rc在最后...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/qq_34705562">来自：	<span class="blog_title"> 疯狂的浣熊的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/zgf19930504/9578080,searchFromBaidu_19"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/zgf19930504/9578080,searchFromBaidu_19"}'>
+		<a href="https://download.csdn.net/download/zgf19930504/9578080" target="_blank">
+			<h4 class="text-truncate oneline">
+					<em>heirloom-mailx</em>_12.5.orig.tar.gz - 记忆碎片_			</h4>
+			<div class="info-box d-flex align-content-center">
+				<p>
+									<span class="read-num">下载</span>
+								</p>
+				<p>
+					<span class="date">07-17</span>
+				</p>
+			</div>
+			<p class="content oneline">
+					heirloom-mailx_12.5.orig.tar.gz			</p>
+		</a>
+
+	</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/oYinJi1/article/details/78776328,BlogCommendFromGuangxin_20"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/oYinJi1/article/details/78776328,BlogCommendFromGuangxin_20"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/oYinJi1/article/details/78776328" target="_blank" title="Ubuntu16.04下发送邮件 - oYinJi1的博客">
+				<h4 class="text-truncate oneline">
+						<em>Ubuntu16.04</em>下<em>发送邮件</em> - oYinJi1的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/1/D/B/3_oyinji1.jpg" alt="oYinJi1" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">oYinJi1</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">12-11</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							1044</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/oYinJi1/article/details/78776328" target="_blank" title="Ubuntu16.04下发送邮件 - oYinJi1的博客">
+							<span class="desc oneline">Ubuntu16.04下通过经典组合msmtp+mutt发送邮件
+1、更新软件源 安装软件
+sudo apt-get update
+sudo apt-get install mutt msmtp...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/oYinJi1">来自：	<span class="blog_title"> oYinJi1的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/a2211455/article/details/52769894,BlogCommendFromGuangxin_21"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/a2211455/article/details/52769894,BlogCommendFromGuangxin_21"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/a2211455/article/details/52769894" target="_blank" title="Ubuntu下使用SMTP服务器发送邮件到外部邮箱 - 王飞平的博客">
+				<h4 class="text-truncate oneline">
+						Ubuntu下使用<em>SMTP</em><em>服务器</em><em>发送邮件</em>到<em>外部</em>邮箱 - 王飞平的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/3/7/0/3_a2211455.jpg" alt="a2211455" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">a2211455</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">10-09</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							3673</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/a2211455/article/details/52769894" target="_blank" title="Ubuntu下使用SMTP服务器发送邮件到外部邮箱 - 王飞平的博客">
+							<span class="desc oneline">最开始使用QQ邮箱配置提示没有配置SSL，后来发现问题是QQ邮箱的设置问题，于是就改成163邮箱成功
+  
+  不使用sendmail服务器apt-get install heirloom-mailx...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/a2211455">来自：	<span class="blog_title"> 王飞平的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zstack_org/article/details/69525954,BlogCommendFromBaidu_22"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zstack_org/article/details/69525954,BlogCommendFromBaidu_22"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zstack_org/article/details/69525954" target="_blank" title="如何在Ubuntu 16.04上安装并配置Postfix作为只发送SMTP服务器 - zstack_org的博客">
+				<h4 class="text-truncate oneline">
+						如何在Ubuntu 16.04上安装并配置Postfix作为只发送<em>SMTP</em><em>服务器</em> - zstack_org的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/9/5/3/3_zstack_org.jpg" alt="zstack_org" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">zstack_org</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">04-07</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							6663</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zstack_org/article/details/69525954" target="_blank" title="如何在Ubuntu 16.04上安装并配置Postfix作为只发送SMTP服务器 - zstack_org的博客">
+							<span class="desc oneline">提供：ZStack云计算 内容介绍Postfix是一套邮件传输代理（简称MTA），用于发送并接收邮件。在本教程中，我们将安装并配置Postfix，并利用它仅为本地应用发送邮件——所谓本地应用，即与Po...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/zstack_org">来自：	<span class="blog_title"> zstack_org的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_555" data-pid="63" data-track-view='{"mod":"kp_popu_555","con":",,"}'><div id="three_ad23" class="mediav_ad" ></div>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script>
+                                               NEWS_FEED({
+                w: 852,
+                h : 60,
+                showid : 'GNKXx7',
+                placeholderId: "three_ad23",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 3,
+                    imageWidth: 90,
+                    imageHeight: 60,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Microsoft Yahei',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 0,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script></div></div>
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/lzhui1987/article/details/64474151,BlogCommendFromBaidu_23"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/lzhui1987/article/details/64474151,BlogCommendFromBaidu_23"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/lzhui1987/article/details/64474151" target="_blank" title="Ubuntu 16.04 布置postfix、dovecot邮件服务器 - Hyman的博客">
+				<h4 class="text-truncate oneline">
+						Ubuntu 16.04 布置postfix、dovecot邮件<em>服务器</em> - Hyman的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/1/4/5/3_lzhui1987.jpg" alt="lzhui1987" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">lzhui1987</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">03-21</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							8974</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/lzhui1987/article/details/64474151" target="_blank" title="Ubuntu 16.04 布置postfix、dovecot邮件服务器 - Hyman的博客">
+							<span class="desc oneline">一、引言
+        postfix是Wietse Venema在IBM的GPL协议之下开发的MTA（邮件传输代理）软件，也就是我们常说的SMTP服务端。postfix是Wietse
+ Venem...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/lzhui1987">来自：	<span class="blog_title"> Hyman的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/sophiaFXR/article/details/52096690,BlogCommendFromBaidu_24"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sophiaFXR/article/details/52096690,BlogCommendFromBaidu_24"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/sophiaFXR/article/details/52096690" target="_blank" title="Linux网络命令--mail邮件命令 - sophiaFXR的博客">
+				<h4 class="text-truncate oneline">
+						Linux网络命令--mail邮件命令 - sophiaFXR的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/8/9/8/3_sophiafxr.jpg" alt="sophiaFXR" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">sophiaFXR</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">08-02</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							2192</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/sophiaFXR/article/details/52096690" target="_blank" title="Linux网络命令--mail邮件命令 - sophiaFXR的博客">
+							<span class="desc oneline">Linux网络命令--mail邮件命令
+1  命令说明
+指令名称：mail
+指令所在路径：/bin/mail
+执行权限：所有用户
+语法：mail [用户名]    此处的用户无论当前是否在线...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/sophiaFXR">来自：	<span class="blog_title"> sophiaFXR的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/jxlhc09/article/details/12438005,BlogCommendFromBaidu_25"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/jxlhc09/article/details/12438005,BlogCommendFromBaidu_25"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/jxlhc09/article/details/12438005" target="_blank" title="mailx的安装方法 - jxlhc09的专栏">
+				<h4 class="text-truncate oneline">
+						mailx的安装方法 - jxlhc09的专栏				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/5/8/2/3_jxlhc09.jpg" alt="jxlhc09" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">jxlhc09</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">10-08</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							2520</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/jxlhc09/article/details/12438005" target="_blank" title="mailx的安装方法 - jxlhc09的专栏">
+							<span class="desc oneline">如果希望通过在linux下发送邮件，可以选用mailx，安装与操作都相当简单。
+下面就讲讲mailx安装与使用方法
+安装：
+1，下载mailx-12.4.tar.bz2
+
+2，解压  tar –xvf...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/jxlhc09">来自：	<span class="blog_title"> jxlhc09的专栏</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/stability4884/article/details/47727295,BlogCommendFromCidStrategy_26"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/stability4884/article/details/47727295,BlogCommendFromCidStrategy_26"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/stability4884/article/details/47727295" target="_blank" title="Linux上通过mail调用外部邮箱发送外部邮件 - Brad_Chen Focus on Linux.">
+				<h4 class="text-truncate oneline">
+						Linux上<em>通过</em>mail调用<em>外部</em>邮箱发送<em>外部</em>邮件 - Brad_Chen Focus on Linux.				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/5/3/3/3_stability4884.jpg" alt="stability4884" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">stability4884</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">08-17</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							2023</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/stability4884/article/details/47727295" target="_blank" title="Linux上通过mail调用外部邮箱发送外部邮件 - Brad_Chen Focus on Linux.">
+							<span class="desc oneline">之前做Nagios监控的时候，报警功能一直无法正常使用，前两天看到一个方法，是使用linux自带的mai命令来调用外部邮箱，这样就可以直接给外部邮箱来发送邮件了。
+1.首先确保你的linux主机安装了...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/stability4884">来自：	<span class="blog_title"> Brad_Chen Focus on Linux.</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/rainday0310/article/details/6282511,BlogCommendFromCidStrategy_27"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/rainday0310/article/details/6282511,BlogCommendFromCidStrategy_27"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/rainday0310/article/details/6282511" target="_blank" title="使用Telnet登录SMTP服务器发送邮件 - 苗雨顺的专栏">
+				<h4 class="text-truncate oneline">
+						使用Telnet登录<em>SMTP</em><em>服务器</em><em>发送邮件</em> - 苗雨顺的专栏				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/D/B/9/3_rainday0310.jpg" alt="rainday0310" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">rainday0310</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">03-28</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							3782</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/rainday0310/article/details/6282511" target="_blank" title="使用Telnet登录SMTP服务器发送邮件 - 苗雨顺的专栏">
+							<span class="desc oneline">telnet smtp.163.com 25    //登陆 smtp.163.com 端口号为 25Trying 202.108.44.205...Connected to smtp.163.com...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/rainday0310">来自：	<span class="blog_title"> 苗雨顺的专栏</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_81" data-pid="64" data-track-view='{"mod":"kp_popu_81","con":",,"}'><div id="three_ad28" class="mediav_ad" ></div>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script>
+                                               NEWS_FEED({
+                w: 852,
+                h : 60,
+                showid : 'Afihld',
+                placeholderId: "three_ad28",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 3,
+                    imageWidth: 90,
+                    imageHeight: 60,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Microsoft Yahei',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 0,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script></div></div>
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/yandong19861103/article/details/3896483,BlogCommendFromCidStrategy_28"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/yandong19861103/article/details/3896483,BlogCommendFromCidStrategy_28"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/yandong19861103/article/details/3896483" target="_blank" title="用C#实现用免费smtp服务器（GMail）发邮件 - 寒冬玉">
+				<h4 class="text-truncate oneline">
+						用C#实现用免费<em>smtp</em><em>服务器</em>（GMail）发邮件 - 寒冬玉				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/F/A/A/3_yandong19861103.jpg" alt="yandong19861103" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">yandong19861103</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">02-16</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							1921</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/yandong19861103/article/details/3896483" target="_blank" title="用C#实现用免费smtp服务器（GMail）发邮件 - 寒冬玉">
+							<span class="desc oneline"> GMail的smtp服务，感觉非常稳定、快速。记录下来，方便后来者！      Method 1   ------------------------------------------------...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/yandong19861103">来自：	<span class="blog_title"> 寒冬玉</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/MOONCOM/article/details/68486487,BlogCommendFromCidStrategy_29"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/MOONCOM/article/details/68486487,BlogCommendFromCidStrategy_29"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/MOONCOM/article/details/68486487" target="_blank" title="Linux上的服务器无法调用新浪邮箱发送邮件 - MOONCOM的博客">
+				<h4 class="text-truncate oneline">
+						Linux上的<em>服务器</em>无法调用新浪邮箱<em>发送邮件</em> - MOONCOM的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/6/0/A/3_mooncom.jpg" alt="MOONCOM" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">MOONCOM</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">03-30</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							8695</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/MOONCOM/article/details/68486487" target="_blank" title="Linux上的服务器无法调用新浪邮箱发送邮件 - MOONCOM的博客">
+							<span class="desc oneline">问题背景：
+在web网站开发中，有许多功能的实现需要发送邮件，比如用户的密码找回功能，可能就需要通过服务器向用户的注册邮箱发送验证码邮件来实现。而发送邮件功能可以通过很多方式实现，比如HTML中的ma...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/MOONCOM">来自：	<span class="blog_title"> MOONCOM的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/big1980/article/details/17296815,BlogCommendFromCidStrategy_30"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/big1980/article/details/17296815,BlogCommendFromCidStrategy_30"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/big1980/article/details/17296815" target="_blank" title="LINUX下通过外部SMTP发邮件 （直接抛弃sendmail和postfix） - 学习中间件调优管理监控的专栏">
+				<h4 class="text-truncate oneline">
+						LINUX下<em>通过</em><em>外部</em><em>SMTP</em>发邮件 （直接抛弃sendmail和postfix） - 学习中间件调优管理监控的专栏				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/8/2/1/3_big1980.jpg" alt="big1980" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">big1980</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">12-13</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							1581</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/big1980/article/details/17296815" target="_blank" title="LINUX下通过外部SMTP发邮件 （直接抛弃sendmail和postfix） - 学习中间件调优管理监控的专栏">
+							<span class="desc oneline">LINUX下通过外部SMTP发邮件 （直接抛弃sendmail和postfix）
+至于sentmail和postfix的配置有多么麻烦老衲在这里就不多废话了...反正老衲是配置了N个小时，最终弄的头...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/big1980">来自：	<span class="blog_title"> 学习中间件调优管理监控的专栏</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    			<div class="recommend-item-box recommend-box-ident recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/wengjixi/7178599,BlogCommendFromBaidu_31"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/wengjixi/7178599,BlogCommendFromBaidu_31"}'>
+			<a href="https://download.csdn.net/download/wengjixi/7178599" target="_blank">
+				<div class="content">
+					<div class="">
+						<span class="type">下载</span>
+						<h4 class="text-truncate oneline clearfix">
+							linux下 配置mailx邮件 - 翁少						</h4>
+						<span class="data float-right">04-11</span>
+					</div>
+					<div class="desc oneline">
+							文档描述了怎样在linux下配置mailx方法，简单有用					</div>
+				</div>
+			</a>
+		</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/waynebuaa/article/details/6885193,BlogCommendFromBaidu_32"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/waynebuaa/article/details/6885193,BlogCommendFromBaidu_32"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/waynebuaa/article/details/6885193" target="_blank" title="nail (mailx) 使用外部SMTP服务器配置 - 花非花，雾非雾">
+				<h4 class="text-truncate oneline">
+						nail (mailx) 使用<em>外部</em><em>SMTP</em><em>服务器</em>配置 - 花非花，雾非雾				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/C/3/1/3_waynebuaa.jpg" alt="waynebuaa" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">waynebuaa</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">10-18</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							3722</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/waynebuaa/article/details/6885193" target="_blank" title="nail (mailx) 使用外部SMTP服务器配置 - 花非花，雾非雾">
+							<span class="desc oneline">http://linux.chinaunix.net/techdoc/net/2009/07/08/1122449.shtml
+
+
+
+/bin/mail会默认使用本地sendmail发送邮件，...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/waynebuaa">来自：	<span class="blog_title"> 花非花，雾非雾</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_84" data-pid="65" data-track-view='{"mod":"kp_popu_84","con":",,"}'><div id="three_ad33" class="mediav_ad" ></div>
+<script>
+                                               NEWS_FEED({
+                w: 852,
+                h : 60,
+                showid : 'GNKXx7',
+                placeholderId: "three_ad33",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 3,
+                    imageWidth: 90,
+                    imageHeight: 60,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Microsoft Yahei',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 0,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script></div></div>
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/hanmengaidudu/article/details/17616921,BlogCommendFromBaidu_33"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/hanmengaidudu/article/details/17616921,BlogCommendFromBaidu_33"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/hanmengaidudu/article/details/17616921" target="_blank" title="ubuntu12.04完美安装QQ2012、QQMusic、Foxmail等 - sunnywalden">
+				<h4 class="text-truncate oneline">
+						ubuntu12.04完美安装QQ2012、QQMusic、Foxmail等 - sunnywalden				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/E/2/4/3_hanmengaidudu.jpg" alt="hanmengaidudu" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">hanmengaidudu</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">12-27</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							5179</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/hanmengaidudu/article/details/17616921" target="_blank" title="ubuntu12.04完美安装QQ2012、QQMusic、Foxmail等 - sunnywalden">
+							<span class="desc oneline">其实在这之前，试过无数次的wine模拟，没有一次成功的，也不能说是不成功，反正就是不完美，Bug比较多，不过这次可能是运气比较好，什么乱码，什么输入框黑屏，都没遇到。完了还试了下其他的程序，如foxm...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/hanmengaidudu">来自：	<span class="blog_title"> sunnywalden</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/a5nan/article/details/52297018,BlogCommendFromBaidu_34"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/a5nan/article/details/52297018,BlogCommendFromBaidu_34"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/a5nan/article/details/52297018" target="_blank" title="postfix端口修改linux下发送email的smtp端口unbuntu - johnny的博客">
+				<h4 class="text-truncate oneline">
+						postfix端口修改linux下发送email的<em>smtp</em>端口unbuntu - johnny的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/0/1/E/3_a5nan.jpg" alt="a5nan" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">a5nan</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">08-24</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							6741</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/a5nan/article/details/52297018" target="_blank" title="postfix端口修改linux下发送email的smtp端口unbuntu - johnny的博客">
+							<span class="desc oneline">有的时候SMTP的默认25端口不能用会导致无法使用邮箱功能，解决办法就是添加多端口。
+1、修改postfix的配置文件
+
+vim /etc/postfix/master.cf
+在已有第一行：...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/a5nan">来自：	<span class="blog_title"> johnny的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/newjueqi/article/details/7084683,BlogCommendFromBaidu_35"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/newjueqi/article/details/7084683,BlogCommendFromBaidu_35"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/newjueqi/article/details/7084683" target="_blank" title="Ubuntu smtp验证配置 - 曾健生的专栏">
+				<h4 class="text-truncate oneline">
+						Ubuntu <em>smtp</em>验证配置 - 曾健生的专栏				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/7/2/8/3_newjueqi.jpg" alt="newjueqi" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">newjueqi</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">12-19</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							2843</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/newjueqi/article/details/7084683" target="_blank" title="Ubuntu smtp验证配置 - 曾健生的专栏">
+							<span class="desc oneline">http://blog.itpub.net/post/11939/459273
+
+
+在配置sendmail 的smpt验证时，碰到了不少麻烦事，最后总算搞定了。有时只是一些简单的操作，却是因为没...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/newjueqi">来自：	<span class="blog_title"> 曾健生的专栏</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/baiquan17/article/details/53506999,BlogCommendFromBaidu_36"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/baiquan17/article/details/53506999,BlogCommendFromBaidu_36"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/baiquan17/article/details/53506999" target="_blank" title="linux安装foxmail - 脚步的留影">
+				<h4 class="text-truncate oneline">
+						linux安装foxmail - 脚步的留影				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/9/4/D/3_baiquan17.jpg" alt="baiquan17" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">baiquan17</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">12-07</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							1.9万</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/baiquan17/article/details/53506999" target="_blank" title="linux安装foxmail - 脚步的留影">
+							<span class="desc oneline">1）首先要安装ie：
+sudo apt-get install wine
+
+sudo apt-get install cabextract
+
+wget http://www.tatanka....</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/baiquan17">来自：	<span class="blog_title"> 脚步的留影</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u012867916/article/details/56484680,BlogCommendFromBaidu_37"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u012867916/article/details/56484680,BlogCommendFromBaidu_37"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u012867916/article/details/56484680" target="_blank" title="Foxmail软件的安装和使用 - 迷路的程序员">
+				<h4 class="text-truncate oneline">
+						Foxmail软件的安装和使用 - 迷路的程序员				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/0/D/D/3_u012867916.jpg" alt="u012867916" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">u012867916</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">02-22</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							555</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u012867916/article/details/56484680" target="_blank" title="Foxmail软件的安装和使用 - 迷路的程序员">
+							<span class="desc oneline">软件推荐--Foxmail</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/u012867916">来自：	<span class="blog_title"> 迷路的程序员</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_87" data-pid="66" data-track-view='{"mod":"kp_popu_87","con":",,"}'><div id="three_ad38" class="mediav_ad" ></div>
+<script>
+                                               NEWS_FEED({
+                w: 852,
+                h : 60,
+                showid : 'Afihld',
+                placeholderId: "three_ad38",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 3,
+                    imageWidth: 90,
+                    imageHeight: 60,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Microsoft Yahei',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 0,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script></div></div>
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/a542551042/article/details/45022895,BlogCommendFromBaidu_38"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/a542551042/article/details/45022895,BlogCommendFromBaidu_38"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/a542551042/article/details/45022895" target="_blank" title="Ubuntu 环境安装整理 - HipHipCoder">
+				<h4 class="text-truncate oneline">
+						Ubuntu 环境安装整理 - HipHipCoder				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/0/6/A/3_a542551042.jpg" alt="a542551042" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">a542551042</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">04-13</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							1324</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/a542551042/article/details/45022895" target="_blank" title="Ubuntu 环境安装整理 - HipHipCoder">
+							<span class="desc oneline">Ubuntu  环境搭建</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/a542551042">来自：	<span class="blog_title"> HipHipCoder</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u010649766/article/details/78567629,BlogCommendFromBaidu_39"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u010649766/article/details/78567629,BlogCommendFromBaidu_39"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u010649766/article/details/78567629" target="_blank" title="Ubuntu 下 Thunderbird 和 exchange 配置 - 独一无二的小个性">
+				<h4 class="text-truncate oneline">
+						Ubuntu 下 Thunderbird 和 exchange 配置 - 独一无二的小个性				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/6/2/4/3_u010649766.jpg" alt="u010649766" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">u010649766</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">11-18</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							781</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u010649766/article/details/78567629" target="_blank" title="Ubuntu 下 Thunderbird 和 exchange 配置 - 独一无二的小个性">
+							<span class="desc oneline">Ubuntu 下使用 Thunderbird 做邮件客户端，因为实在是找不到类似 Foxmail 一样的软件了。 
+幸好，Ubuntu 自带这款软件，但是用起来有个问题就是只能接受邮件不能发送邮件。
+...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/u010649766">来自：	<span class="blog_title"> 独一无二的小个性</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u011628250/article/details/72974478,BlogCommendFromCidStrategy_40"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u011628250/article/details/72974478,BlogCommendFromCidStrategy_40"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u011628250/article/details/72974478" target="_blank" title="搭建邮件服务器之SMTP发送服务器(一) 写在前面 - PHP程序员 - muzihao2014">
+				<h4 class="text-truncate oneline">
+						搭建邮件<em>服务器</em>之<em>SMTP</em>发送<em>服务器</em>(一) 写在前面 - PHP程序员 - muzihao2014				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/8/B/2/3_u011628250.jpg" alt="u011628250" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">u011628250</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">06-10</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							9722</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u011628250/article/details/72974478" target="_blank" title="搭建邮件服务器之SMTP发送服务器(一) 写在前面 - PHP程序员 - muzihao2014">
+							<span class="desc oneline">您可能想要拥有自己的SMTP服务器有很多原因。但是，许多企业将电子邮件发送给第三方服务也有许多原因。拥有自己的SMTP服务器的最大问题之一是设置整个事情是非常困难的，以获得稳定的传输速率。搭建邮件服务...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/u011628250">来自：	<span class="blog_title"> PHP程序员 - muzihao2014</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_40727375/article/details/80137267,BlogCommendFromCidStrategy_41"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_40727375/article/details/80137267,BlogCommendFromCidStrategy_41"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_40727375/article/details/80137267" target="_blank" title="zabbix 通过smtp外部邮箱实现邮件报警 - Chan_666的博客">
+				<h4 class="text-truncate oneline">
+						zabbix <em>通过</em><em>smtp</em><em>外部</em>邮箱实现邮件报警 - Chan_666的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/4/D/4/3_qq_40727375.jpg" alt="qq_40727375" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">qq_40727375</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">04-28</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							588</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_40727375/article/details/80137267" target="_blank" title="zabbix 通过smtp外部邮箱实现邮件报警 - Chan_666的博客">
+							<span class="desc oneline">简介在zabbix的使用中，最重要的一点就是完善的报警机制，作为监控平台，需要时刻关注机器和服务的运行状态，更重要的是发现故障之后需要及时的报警给相关人员，早点发现问题，将隐患消除在未然阶段。这样才能...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/qq_40727375">来自：	<span class="blog_title"> Chan_666的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_35306193/article/details/73277904,BlogCommendFromCidStrategy_42"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_35306193/article/details/73277904,BlogCommendFromCidStrategy_42"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_35306193/article/details/73277904" target="_blank" title=".net用smtp发邮件 - qq_35306193的博客">
+				<h4 class="text-truncate oneline">
+						.net用<em>smtp</em>发邮件 - qq_35306193的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/0/B/B/3_qq_35306193.jpg" alt="qq_35306193" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">qq_35306193</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">06-15</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							561</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_35306193/article/details/73277904" target="_blank" title=".net用smtp发邮件 - qq_35306193的博客">
+							<span class="desc oneline">对于.NET而言，从2.0开始，发邮件已经是一件非常easy 的事了。下面我给出一个用C#群发邮件的实例，做了比较详细的注解，希望对有需要的朋友有所help。
+
+
+// 引入命名空间
+usin...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/qq_35306193">来自：	<span class="blog_title"> qq_35306193的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_658" data-pid="67" data-track-view='{"mod":"kp_popu_658","con":",,"}'><script type="text/javascript">
+    (function() {
+        var s = "_" + Math.random().toString(36).slice(2);
+        document.write('<div style="" id="' + s + '"></div>');
+        (window.slotbydup = window.slotbydup || []).push({
+            id: "u3573058",
+            container:  s
+        });
+    })();
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/c.js" async="async" defer="defer" ></script></div></div>
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u013526896/article/details/22898671,BlogCommendFromCidStrategy_43"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u013526896/article/details/22898671,BlogCommendFromCidStrategy_43"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u013526896/article/details/22898671" target="_blank" title="linux通过shell脚本发送网络邮件 - 杰克的运维之旅">
+				<h4 class="text-truncate oneline">
+						linux<em>通过</em>shell脚本发送网络邮件 - 杰克的运维之旅				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/B/E/1/3_u013526896.jpg" alt="u013526896" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">u013526896</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">04-03</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							4095</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u013526896/article/details/22898671" target="_blank" title="linux通过shell脚本发送网络邮件 - 杰克的运维之旅">
+							<span class="desc oneline">set from=jiakun@ucloud.cn smtp=smtp.qiye.163.com
+set smtp-auth-user=jiakun@ucloud.cn smtp-auth-passw...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/u013526896">来自：	<span class="blog_title"> 杰克的运维之旅</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/man_sion/article/details/70453148,BlogCommendFromCidStrategy_44"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/man_sion/article/details/70453148,BlogCommendFromCidStrategy_44"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/man_sion/article/details/70453148" target="_blank" title="Python 通过连接qq邮箱服务器发送邮件 - man_sion的博客">
+				<h4 class="text-truncate oneline">
+						Python <em>通过</em>连接qq邮箱<em>服务器</em><em>发送邮件</em> - man_sion的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/7/2/C/3_man_sion.jpg" alt="man_sion" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">man_sion</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">04-22</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							1512</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/man_sion/article/details/70453148" target="_blank" title="Python 通过连接qq邮箱服务器发送邮件 - man_sion的博客">
+							<span class="desc oneline">python的smtplib提供了一种很方便的途径发送电子邮件。它对smtp协议进行了简单的封装。
+发送邮件主要用到了smtplib 和 email
+
+
+代码非常简单，上代码：
+import...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/man_sion">来自：	<span class="blog_title"> man_sion的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/stwstw0123/article/details/47660661,BlogCommendFromBaidu_45"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/stwstw0123/article/details/47660661,BlogCommendFromBaidu_45"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/stwstw0123/article/details/47660661" target="_blank" title="Ubuntu之Jenkins的SMTP TLS邮箱设置 - stwstw0123的专栏">
+				<h4 class="text-truncate oneline">
+						Ubuntu之Jenkins的<em>SMTP</em> TLS邮箱设置 - stwstw0123的专栏				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/9/6/7/3_stwstw0123.jpg" alt="stwstw0123" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">stwstw0123</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">08-14</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							2856</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/stwstw0123/article/details/47660661" target="_blank" title="Ubuntu之Jenkins的SMTP TLS邮箱设置 - stwstw0123的专栏">
+							<span class="desc oneline">典型错误为：javax.mail.MessagingException: Could not connect to SMTP host:javax.net.ssl.SSLException: Unre...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/stwstw0123">来自：	<span class="blog_title"> stwstw0123的专栏</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/a5nan/article/details/52510887,BlogCommendFromBaidu_46"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/a5nan/article/details/52510887,BlogCommendFromBaidu_46"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/a5nan/article/details/52510887" target="_blank" title="用命令行发邮件——让你更加了解smtp - johnny的博客">
+				<h4 class="text-truncate oneline">
+						用命令行发邮件——让你更加了解<em>smtp</em> - johnny的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/0/1/E/3_a5nan.jpg" alt="a5nan" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">a5nan</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">09-12</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							7894</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/a5nan/article/details/52510887" target="_blank" title="用命令行发邮件——让你更加了解smtp - johnny的博客">
+							<span class="desc oneline">转载自：http://www.cnblogs.com/fanyong/p/3498670.html
+
+SMTP
+首先介绍下smtp协议——简单邮件传输协议 (Simple Mail Transf...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/a5nan">来自：	<span class="blog_title"> johnny的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/my_momo_csdn/article/details/78289684,BlogCommendFromBaidu_47"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/my_momo_csdn/article/details/78289684,BlogCommendFromBaidu_47"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/my_momo_csdn/article/details/78289684" target="_blank" title="阿里云主机(Ubuntu16.04 64位)安装tomcat8并修改监听端口 - my_momo_csdn的博客">
+				<h4 class="text-truncate oneline">
+						阿里云主机(<em>Ubuntu16.04</em> 64位)安装tomcat8并修改监听端口 - my_momo_csdn的博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/2/3/C/3_my_momo_csdn.jpg" alt="my_momo_csdn" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">my_momo_csdn</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">10-19</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							852</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/my_momo_csdn/article/details/78289684" target="_blank" title="阿里云主机(Ubuntu16.04 64位)安装tomcat8并修改监听端口 - my_momo_csdn的博客">
+							<span class="desc oneline">1.</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/my_momo_csdn">来自：	<span class="blog_title"> my_momo_csdn的博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_659" data-pid="68" data-track-view='{"mod":"kp_popu_659","con":",,"}'><script type="text/javascript">
+    (function() {
+        var s = "_" + Math.random().toString(36).slice(2);
+        document.write('<div style="" id="' + s + '"></div>');
+        (window.slotbydup = window.slotbydup || []).push({
+            id: "u3573059",
+            container:  s
+        });
+    })();
+</script></div></div>
+	
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/DreamHome_S/article/details/78452437,BlogCommendFromBaidu_48"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/DreamHome_S/article/details/78452437,BlogCommendFromBaidu_48"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/DreamHome_S/article/details/78452437" target="_blank" title="Ubuntu16.04中好用的软件（持续更新） - 梦家の博客">
+				<h4 class="text-truncate oneline">
+						<em>Ubuntu16.04</em>中好用的软件（持续更新） - 梦家の博客				</h4>
+				<div class="info-box d-flex align-content-center">
+					<!-- <p class="avatar">
+							<img src="https://avatar.csdn.net/B/0/B/3_dreamhome_s.jpg" alt="DreamHome_S" class="avatar-pic">
+							<span class="namebox">
+								<span class="name">DreamHome_S</span>
+								<span class="triangle"></span>
+							</span>
+					</p> -->
+					<p class="date-and-readNum">
+						<span class="date hover-show">11-05</span>
+						<span class="read-num hover-hide">
+							<svg class="icon csdnc-yuedushu" aria-hidden="true">
+								<use xlink:href="#csdnc-m-passwords-visible"></use>
+							</svg>
+							1.1万</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/DreamHome_S/article/details/78452437" target="_blank" title="Ubuntu16.04中好用的软件（持续更新） - 梦家の博客">
+							<span class="desc oneline">
+  本文记录这些年来使用Ubuntu系统中发现比较好用的软件或者工具。首先说明本人仅仅将Ubuntu作为一个开发工具，至于一些娱乐软件在本文中不提及。（一些娱乐软件当然是安装在另一台Windows机...</span>
+						</a>
+                        						<span class="blog_title_box oneline"><a target="_blank" href="https://blog.csdn.net/DreamHome_S">来自：	<span class="blog_title"> 梦家の博客</span></a></span>
+                        					</p>
+			</div>
+					</div>
+	
+    
+	
+    
+    			<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_713","con":",http://union.dangdang.com/transfer.php?from=P-338253&ad_type=10&sys_id=1&backurl=http://product.dangdang.com/23928876.html,-"}' data-track-click='{"mod":"popu_713","con":",http://union.dangdang.com/transfer.php?from=P-338253&ad_type=10&sys_id=1&backurl=http://product.dangdang.com/23928876.html,-"}'>
+				<div class="content">
+					<a href="http://union.dangdang.com/transfer.php?from=P-338253&ad_type=10&sys_id=1&backurl=http://product.dangdang.com/23928876.html" target="_blank" title="Python网络数据采集">
+					<h4 class="text-truncate oneline">
+							Python网络数据采集					</h4>
+					<div class="info-box d-flex align-content-center">
+						<p class="date-and-readNum">
+							<span class="date hover-show">09-10</span>
+							</p>
+						</div>
+					</a>
+						<p class="content">
+							<a href="http://union.dangdang.com/transfer.php?from=P-338253&ad_type=10&sys_id=1&backurl=http://product.dangdang.com/23928876.html" target="_blank" title="Python网络数据采集">
+								<span class="desc oneline">本书采用简洁强大的Python语言，介绍了网络数据采集，并为采集新式网络中的各种数据类型提供了全面的指导。第1部分重点介绍网络数据采集的基本原理：如何用Python从网络服务器请求信息，如何对服务器的响应进行基本处理，以及如何以自动化手段...</span>
+							</a>
+						</p>
+				</div>
+										<div class="img-box float-left">
+							<img src="https://img-dm.csdnimg.cn/dangdang/23928876.jpg" alt="">
+					</div>
+						</div>
+	
+    
+	
+    
+    
+
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <!-- <h3 class="aside-title">个人资料</h3> -->
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/Just_shunjian">
+                <img src="https://avatar.csdn.net/0/0/F/3_just_shunjian.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/Just_shunjian" target="_blank" class="" id="uid">lvfk</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a class="btn btn-sm btn-red-hollow attention" id="btnAttent">关注</a>
+            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="82">
+                        <dt><a href="https://blog.csdn.net/just_shunjian?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/just_shunjian?t=1"><span class="count">82</span></a></dd>
+                    </dl>
+        <dl class="text-center" id="fanBox" title="12">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">12</span></dd>
+        </dl>
+        <dl class="text-center" title="4">
+            <dt>喜欢</dt>
+            <dd><span class="count">4</span></dd>
+        </dl>
+        <dl class="text-center" title="16">
+            <dt>评论</dt>
+            <dd><span class="count">16</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="4级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-4"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="66126">
+                6万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="1496">
+                1496            </dd>
+        </dl>
+        <dl title="39860">
+            <dt>排名：</dt>
+            <dd>3万+</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+                        <div class="icon-badge" title="持之以恒">
+            <div class="mouse-box">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-m-lasting"></use>
+                </svg>
+                <div class="icon-arrow"></div>
+            </div>
+            <div class="grade-detail-box">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-lasting"></use>
+                        </svg>
+                        <p>持之以恒</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                    </div>
+                </div>
+            </div>
+        </div>
+                                                <script>
+            (function ($) {
+                setTimeout(function(){
+                    $('div.icon-badge.show-moment').removeClass('show-moment');
+                }, 5000);
+            })(window.jQuery)
+        </script>
+    </div>
+    </div>
+		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+      <div id="kp_box_76" data-pid="56" data-track-view='{"mod":"kp_popu_76","con":",,"}'><script type="text/javascript" src="//rabc1.iteye.com/source/openjs/api/mbxf4.js?b=wocoltly"></script></div>    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/Just_shunjian/article/details/79444836" target="_blank">JavaScript 基本语法</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/Just_shunjian/article/details/79429064" target="_blank">网络协议补充-GET/POST区别、常用协议及端口</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/Just_shunjian/article/details/79402592" target="_blank">php 自定义函数及内部函数考察点</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/Just_shunjian/article/details/79400585" target="_blank">php 流程控制考察点</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/Just_shunjian/article/details/79400163" target="_blank">php 运算符</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    <div id="asideCategory" class="aside-box flexible-box">
+    <h3 class="aside-title">个人分类</h3>
+    <div class="aside-content">
+        <ul>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/6179157">
+                    <span class="title oneline">winform</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/6179158">
+                    <span class="title oneline">图片</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/6179210">
+                    <span class="title oneline">Quartz</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/6179368">
+                    <span class="title oneline">C#</span>
+                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/6179467">
+                    <span class="title oneline">mvc4</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/6179468">
+                    <span class="title oneline">asp.net</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/6236733">
+                    <span class="title oneline">nginx</span>
+                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/6236739">
+                    <span class="title oneline">iis</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/6236740">
+                    <span class="title oneline">python</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/6236741">
+                    <span class="title oneline">flup</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/6236742">
+                    <span class="title oneline">WSGI</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/6236743">
+                    <span class="title oneline">反向代理</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7001023">
+                    <span class="title oneline">hadoop</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7001024">
+                    <span class="title oneline">大数据</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7188297">
+                    <span class="title oneline">supervisor</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7225853">
+                    <span class="title oneline">php</span>
+                    <span class="count float-right">51篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7236355">
+                    <span class="title oneline">apache</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7236361">
+                    <span class="title oneline">linux</span>
+                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7263137">
+                    <span class="title oneline">mysql</span>
+                    <span class="count float-right">19篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7285107">
+                    <span class="title oneline">负载均衡</span>
+                    <span class="count float-right">9篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7285108">
+                    <span class="title oneline">分布式</span>
+                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7290253">
+                    <span class="title oneline">消息队列</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7290254">
+                    <span class="title oneline">中间件</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7300634">
+                    <span class="title oneline">io</span>
+                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7300992">
+                    <span class="title oneline">socket</span>
+                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7311786">
+                    <span class="title oneline">redis</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7319001">
+                    <span class="title oneline">smtp</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7319259">
+                    <span class="title oneline">percona-toolkit</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7319312">
+                    <span class="title oneline">ftp</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7356088">
+                    <span class="title oneline">fastcgi</span>
+                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7356089">
+                    <span class="title oneline">uwsgi</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7356126">
+                    <span class="title oneline">django</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7356285">
+                    <span class="title oneline">session</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7356286">
+                    <span class="title oneline">cookie</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7356287">
+                    <span class="title oneline">localStorage</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7356288">
+                    <span class="title oneline">sessionStorage</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7361761">
+                    <span class="title oneline">三方登录</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7435099">
+                    <span class="title oneline">jdk</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7444118">
+                    <span class="title oneline">composer</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7444119">
+                    <span class="title oneline">swiftmailer</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7448792">
+                    <span class="title oneline">yii2</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7448793">
+                    <span class="title oneline">elasticsearch</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7448836">
+                    <span class="title oneline">kafka</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7479348">
+                    <span class="title oneline">网络</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/just_shunjian/article/category/7482832">
+                    <span class="title oneline">javascript</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/just_shunjian/article/month/2018/03">
+                    2018年3月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/just_shunjian/article/month/2018/02">
+                    2018年2月                    <span class="count float-right">10篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/just_shunjian/article/month/2018/01">
+                    2018年1月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/just_shunjian/article/month/2017/12">
+                    2017年12月                    <span class="count float-right">6篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/just_shunjian/article/month/2017/11">
+                    2017年11月                    <span class="count float-right">44篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/just_shunjian/article/month/2017/10">
+                    2017年10月                    <span class="count float-right">28篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/just_shunjian/article/month/2017/09">
+                    2017年9月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/just_shunjian/article/month/2017/07">
+                    2017年7月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/just_shunjian/article/month/2016/05">
+                    2016年5月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/just_shunjian/article/month/2016/04">
+                    2016年4月                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/just_shunjian/article/details/78686776">php-7.2.0源码安装及扩展安装</a>
+					<p class="read">阅读量：<span>8809</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/just_shunjian/article/details/78630596">php 服务端集成支付宝APP支付</a>
+					<p class="read">阅读量：<span>7234</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/just_shunjian/article/details/78288229">Linux 内核优化-调大TCP最大连接数</a>
+					<p class="read">阅读量：<span>3971</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/just_shunjian/article/details/51454346">Nginx反向代理使用IIS，使其可以同时在同一端口上访问ASP.NET MVC和Python</a>
+					<p class="read">阅读量：<span>3762</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/just_shunjian/article/details/78413907">mysql-5.7.20 源码安装</a>
+					<p class="read">阅读量：<span>3528</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/just_shunjian/article/details/78677054#comments">ubuntu16.04 heirl...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/My__Code" class="user-name" target="_blank">My__Code</a>：感谢大佬，想问一下大佬是怎么找到这个软件的配置范例的，是读man找到的吗？                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/just_shunjian/article/details/78677054#comments">ubuntu16.04 heirl...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/hua_0602" class="user-name" target="_blank">hua_0602</a>：[reply]hua_0602[/reply]
+哈哈，用第二个成功了，非常感谢！                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/just_shunjian/article/details/78677054#comments">ubuntu16.04 heirl...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/hua_0602" class="user-name" target="_blank">hua_0602</a>：你好，我按照“不配置端口”配置，没有成功：
+Could not connect: Operatio...                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/just_shunjian/article/details/78707710#comments">php socket select...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/qq_36492368" class="user-name" target="_blank">qq_36492368</a>：链接数量达到1020个会提示:PHP Warning:  socket_select(): You...                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/just_shunjian/article/details/78413907#comments">mysql-5.7.20 源码安装</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/weixin_34885190" class="user-name" target="_blank">weixin_34885190</a>：hello？方不方便在这份博客中加一下你的my.cnf文件以供参考，自己改好多文件找不到                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+			<div id="kp_box_77" data-pid="57" data-track-view='{"mod":"kp_popu_77","con":",,"}'><script type="text/javascript" src="//rabc1.iteye.com/common/web/site/9i6gu.js?av=neunkwb"></script></div>		</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">
+            <div id="dmp_ad_69"><div id="kp_box_75" data-pid="69" data-track-view='{"mod":"kp_popu_75","con":",,"}'><div style="float:left;margin-right:5px;border:1px solid #f13d3d;padding:2px 5px 0px 5px;">
+<a href="https://www.csdn.net/2018dev/?utm_source=blogtextlink" target="_blank" style="color:#f13d3d;font-weight:bold;text-decoration:none;font-size:15px;">开发者调查</a>
+</div>
+
+<div style="float:left;margin-right:5px;border:1px solid #000;padding:2px 5px 0px 5px;background:#000;">
+<a href="https://edu.csdn.net/topic/python115?utm_source=ditong1" target="_blank" style="color:#fff;font-weight:bold;text-decoration:none;font-size:15px;">Python学习路线！</a>
+</div>
+<div style="float:left;margin-right:5px;border:1px solid #f13d3d;padding:2px 5px 0px 5px;">
+<a href="https://mall.csdn.net/vip_code?utm_source=blogtextlink" target="_blank" style="color:#f13d3d;font-weight:bold;text-decoration:none;font-size:15px;">会员任意学</a>
+</div>
+<div style="float:left;margin-right:5px;border:1px solid #000;padding:2px 5px 0px 5px;background:#000;">
+<a href="http://bdtc2018.hadooper.cn?utm_source=blogneiyedibu" target="_blank" style="color:#fff;font-weight:bold;text-decoration:none;font-size:15px;">中国大数据技术大会</a>
+</div>
+<div style="float:left;">
+<script type="text/javascript" src="//rabc1.iteye.com/common/js/ndr3h.js?b=wosyvccl"></script>
+<!-- 长文字链
+<script type="text/javascript" src="//rabc1.iteye.com/common/5klj5.js?kfxbghx=bx"></script>
+-->
+</div></div></div>            		</span>
+		<div class="pulllog-btn float-right clearfix">
+            <div class="float-left csdn-tracking-statistics tracking-click" data-mod="popu_557">
+                <a class="pulllog-login">登录</a>
+            </div>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li class="btn-like-box ">
+			<button class=" low-height hover-box btn-like " title="点赞">
+				<svg class="icon active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg>
+				<svg class="icon no-active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<span class="hover-show text-box text">
+					<span class="no-active">点赞</span>
+					<span class="active">取消点赞</span>
+				</span>
+				<p>0</p>
+			</button>
+		</li>
+		<li class="">
+						<a class="btn-comments long-height hover-box" title="写评论" href="#commentBox">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg>
+				<span class="hover-show text">评论</span>
+				<p class="">
+						3				</p>
+			</a>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc low-height hover-box" title="目录">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg>
+				<span class="hover-show text">目录</span>
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark low-height hover-box" title="收藏">
+				<svg class="icon active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg>
+				<svg class="icon no-active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg>
+					<span class="hover-show text">收藏</span>
+				<!-- <span class="hover-show text-box text">
+					<span class="no-active">收藏</span>
+					<span class="active">取消收藏</span>
+				</span> -->
+			</button>
+		</li>
+				<li class="bdsharebuttonbox">
+			<button class="btn-comments low-height hover-box" >
+				<a href="#" class="bds_weixin clear-share-style" data-cmd="weixin" title="手机看"></a>
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-usephone"></use>
+				</svg>
+				<span class="hover-show text text3">
+					手机看
+				</span>
+			</button>
+		</li>
+							<li class="widescreen-hide">
+				<a class="btn-comments low-height hover-box" href="https://blog.csdn.net/just_shunjian/article/details/78663672" title="ubuntu16.04 percona-toolkit安装">
+					<svg class="icon hover-hide" aria-hidden="true">
+						<use xlink:href="#csdnc-chevronleft"></use>
+					</svg>
+					<span class="hover-show text text3">上一篇</span>
+				</a>
+			</li>
+								<li class="widescreen-hide">
+			<a class="btn-comments hover-box low-height" href="https://blog.csdn.net/just_shunjian/article/details/78678231" title="liunx 利用ssh传输文件">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-chevronright"></use>
+				</svg>
+				<span class="hover-show text text3">下一篇</span>
+			</a>
+		</li>
+				<li class="bdsharebuttonbox _360_interactive"style="margin-top: 8px;"><div id="kp_box_97" data-pid="73" data-track-view='{"mod":"kp_popu_97","con":",,"}'><script type="text/javascript" src="//cjhd.mediav.com/js/interactive_plugin.js"></script> 
+			<style>
+				#_360_interactive > *{
+					 margin-left: -8px;
+				}
+			</style>
+			<div id="_360_interactive" > 
+				<script> INTERACTIVE_PLUGIN.render({ showid : 'N0ufqn', w: 60, h: 60, type: 'click', placeholderId: '_360_interactive' }); </script> 
+			</div>
+			<img src="//img-ads.csdn.net/2016/201608021757063065.png" style="margin: 0 auto;display: block;" alt=""></div></li>		<!-- 宽屏更多按钮 -->
+		<li class="widescreen-more">
+			<a class="btn-comments chat-ask-button low-height hover-box" title="快问" href="#chatqa">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-more"></use>
+				</svg>
+				<span class="hover-show text">更多</span>
+				
+			</a>
+			<ul class="widescreen-more-box">
+													<li class="widescreen-more">
+						<a class="btn-comments low-height hover-box" href="https://blog.csdn.net/just_shunjian/article/details/78663672" title="ubuntu16.04 percona-toolkit安装">
+							<svg class="icon hover-hide" aria-hidden="true">
+								<use xlink:href="#csdnc-chevronleft"></use>
+							</svg>
+							<span class="hover-show text text3">上一篇</span>
+						</a>
+					</li>
+																<li class="widescreen-more">
+					<a class="btn-comments hover-box low-height" href="https://blog.csdn.net/just_shunjian/article/details/78678231" title="liunx 利用ssh传输文件">
+						<svg class="icon hover-hide" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronright"></use>
+						</svg>
+						<span class="hover-show text text3">下一篇</span>
+					</a>
+				</li>
+							</ul>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 50;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = articleTitles;
+    var ChannelId = 12;
+    var articleId = "78677054";
+    var commentscount = 3;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/just_shunjian/article/details/78677054";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "heirloom-mailx%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%90%8D%E5%AD%97";
+    var needInsertBaidu = false;
+    // 代码段样式
+    var codeStyle = '';
+		var highlight = ["ubuntu16.04","heirloom-mailx","\u901a\u8fc7","\u5916\u90e8","smtp","\u670d\u52a1\u5668","\u53d1\u9001\u90ae\u4ef6"];//高亮数组
+		// 相关推荐博主数据
+    var RecommendBlogExpertList = [];
+
+		var articleType = 1;
+		var CopyrightContent = '本文为博主原创文章，未经博主允许不得转载。';
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.4/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,articleTit);
+        }
+    })
+</script>
+<script src="https://g.csdnimg.cn/login-box/1.0.2/login-box.js?t=1542363472"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-946dc75567.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-7e66351ff6.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-9376486353.min.js"></script>
+<script src="//g.csdnimg.cn/fixed-sidebar/1.0.8/fixed-sidebar.js" type="text/javascript"></script>
+<script src="https://csdnimg.cn/search/baidu_search-1.1.2.js?v=201802071056&autorun=true&install=true&keyword=heirloom-mailx%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%90%8D%E5%AD%97"  type="text/javascript"></script>
+</body>
+
+<!-- 右侧第四栏 -->
+<div class="fourth_column">
+	<div class="title-box">
+		<b class="title">猿学习</b>
+		<span class="fourth_column_close">    
+			<svg class="icon" aria-hidden="true">
+				<use xlink:href="#csdnc-times"></use>
+			</svg>
+		</span>
+		
+	</div>
+	<ul class="">
+		<li><div id="kp_box_638" data-pid="456" data-track-view='{"mod":"kp_popu_638","con":",,"}'><a href="https://edu.csdn.net/topic/ai30?utm_source=blogright" target="_blank">  <div class="blogkp1"><img src="https://img-ads.csdn.net/2018/201811070940425306.png"width="100" height="100"><h6>人工智能工程师免费试听</h6></div></a></div></li>		<li><div id="kp_box_639" data-pid="457" data-track-view='{"mod":"kp_popu_639","con":",,"}'><a href="https://edu.csdn.net/topic/python115?utm_source=blogright" target="_blank"><div class="blogkp2"><img src="https://img-ads.csdn.net/2018/201811070945058586.png"width="100" height="100"><h6>Python全栈工程师免费试听</h6>
+    </div></a></div></li>		<li><div id="kp_box_640" data-pid="458" data-track-view='{"mod":"kp_popu_640","con":",,"}'><a href="https://gitchat.csdn.net/column/5a7d1a13a7f22b3dffca7e49?utm_source=csdn100" target="_blank"><div class="blogkp3"><img src="http://img-ads.csdn.net/2018/201811091452349556.png"width="100" height="100"><h6>Python 爬虫和数据分析实战</h6><span style="position:absolute;right:0;bottom:0;background:url(https://img-ads.csdn.net/2016/201608021757063065.png) no-repeat;width:33px;height:18px;display:block;z-index: 9999;"></span></div></a></div></li>		<li><div id="kp_box_655" data-pid="459" data-track-view='{"mod":"kp_popu_655","con":",,"}'><a href="https://edu.csdn.net/topic/ai30?utm_source=blogright" target="_blank"><div class="blogkp3"><img src="https://img-ads.csdn.net/2018/201811091258589141.png"width="100" height="100"><h6>人工智能工程师 </h6><span style="position:absolute;right:0;bottom:0;background:url(https://img-ads.csdn.net/2016/201608021757063065.png) no-repeat;width:33px;height:18px;display:block;z-index: 9999;"></span></div></a></div></li>	</ul>
+</div>
+<script type="text/javascript">
+	$('.fourth_column_close').click(function(){
+		$('.fourth_column').remove();
+	})
+</script>
+<!-- 右侧第四栏end -->
+<!-- 高亮未与 markdown兼容  -->
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/chart/chart.css" />
+	<script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/chart/lib/chart.min.js"></script>
+	<script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/chart/widget2chart.js"></script>
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.3.1/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-dark.css">
+	<script type="text/javascript" src="https://csdnimg.cn/release/phoenix/production/pc_wap_common-9e177e0136.js" /></script>
+
+	<script type="text/javascript">
+	$(function(){
+		var allEscRegex = /&(lt|gt|amp|quot|nbsp|shy|#\d{1,5});/g,
+		    namedEntities = {
+					lt: '<',
+					gt: '>',
+					amp: '&',
+					quot: '"',
+					nbsp: '\u00a0',
+					shy: '\u00ad'
+				}
+		var allEscDecode = function( match, code ) {
+				return namedEntities[ code ];
+		};
+		htmlDecodeAttr = function( text ) {
+				return text.replace( allEscRegex, allEscDecode );
+		}
+	  hljs.initHighlightingOnLoad();
+	  hljs.initCopyButtonOnLoad();
+	  hljs.initLineNumbersOnLoad();
+		if($('pre .language-plain').length>0){
+			$('pre .language-plain').each(function(i,e){
+				var highlightRe = hljs.highlightAuto(htmlDecodeAttr(e.innerHTML))
+				e.innerHTML = highlightRe.value;
+				e.className = 'language-'+highlightRe.language;
+			});
+		}
+	})
+	</script>
+<script type="text/javascript" src="//g.csdnimg.cn/check-adblock/1.0.9/check-adblock.js"></script>
+
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            "HTML-CSS": {
+                    linebreaks: { automatic: true, width: "94%container" },
+                    imageFont: null
+            },
+            tex2jax: {
+                preview: "none"
+            },
+            mml2jax: {
+                preview: 'none'
+            }
+    });
+</script>
+<script type="text/javascript">
+window.baidu_hh_hotword = {
+    di:'24004469_1_oem_dg',
+    isMobile:false,
+    page_url:'https://blog.csdn.net/just_shunjian/article/details/78677054',
+    title:'ubuntu16.04 heirloom-mailx 通过外部SMTP服务器发送邮件',
+    sid:""
+}
+</script>
+<script src="https://gh.bdstatic.com/static/gh/js/ll/mword.js"></script>
+</html>

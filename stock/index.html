@@ -1,0 +1,91 @@
+<doctype html>
+<html>
+<head>
+    <title>股票练习软件</title>
+</head>
+<body>
+    <script src="conf/conf.js"></script>
+    <script>
+        // 加载配置数据
+        // 加载全局数据，如code列表，支持条目，支持曲线等，
+        //gdata.init();
+        //conf.init();
+        if (!window.localStorage) {
+            alert("不支持window.localStorage，程序无法正常使用");
+        }
+
+        var localStorage = window.localStorage;
+        if (null == localStorage.getItem('global')) {
+            conf.set('global', conf.m_def.global);
+        }
+        if (null == localStorage.getItem('list')) {
+            conf.set('list', conf.m_def.list);
+        }
+        if (null == localStorage.getItem('single')) {
+            conf.set('single', conf.m_def.single);
+        }
+        if (null == localStorage.getItem('batch')) {
+            conf.set('batch', conf.m_def.batch);
+        }
+        if (null == localStorage.getItem('cond')) {
+            conf.set('cond', conf.m_def.cond);
+        }
+        if (null == localStorage.getItem('kind')) {
+            conf.set('kind', conf.m_def.kind);
+        }
+        if (null == localStorage.getItem('train')) {
+            conf.set('train', conf.m_def.train);
+        }
+        if (null == localStorage.getItem('kline')) {
+            conf.set('kline', conf.m_def.kline);
+        }
+
+        gdata.get();
+        var global = conf.get("global");
+        req = { "method": "init.info", "date": global.date };
+        function remoteInitInfo(jsonRes) {
+            console.log(jsonRes);
+            if ('0000' != jsonRes.retcode) {
+                console.log('ERROR: { "method": "list.all" } retcode error: ' + jsonRes.retcode);
+                return false;
+            }
+
+            gdata.m_data.codes = [];
+            gdata.m_data.idx = 0;
+            for (var i = 0; i < jsonRes.result.code.length; i++) {
+                gdata.m_data.codes.push(jsonRes.result.code[i]);
+            }
+            console.log('remoteListall: ' + gdata.m_data.codes);
+            gdata.set();
+
+            var jsonConf = conf.get('list');
+            jsonConf.exist = [];
+            jsonConf.exist = jsonRes.result.item.slice(0);
+            //console.log(jsonList.exist);
+            conf.set('list', jsonConf);
+
+            jsonConf = conf.get('single');
+            jsonConf.exist = [];
+            jsonConf.exist = jsonRes.result.single.slice(0);
+            conf.set('single', jsonConf);
+
+            jsonConf = conf.get('batch');
+            jsonConf.exist = [];
+            jsonConf.exist = jsonRes.result.batch.slice(0);
+            conf.set('batch', jsonConf);
+
+            jsonConf = conf.get('cond');
+            jsonConf.exist = [];
+            jsonConf.exist = jsonRes.result.cond.slice(0);
+            conf.set('cond', jsonConf);
+
+            return true;
+        }
+        gdata.send(req, remoteInitInfo);
+        ///////////////end: list.all/////////////////////////
+        gdata.set();
+        gdata.get();
+        window.location.href="line/line.html";
+    </script>
+</body>
+</html>

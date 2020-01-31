@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+    <title>table</title>
+</head>
+<body>
+    <table>
+    <tr>
+        <td><input type="text" value="1234"/></td>
+        <td>
+            <select>
+                <option>良好</option>
+                <option>优秀</option>
+                <option>不合格</option>
+            </select>
+        </td>
+        <td>
+            <input type="color" name="color" id="color" onchange="changeColor()">    <!--选择颜色的标签，type="color"-->
+　　        <span id="colorInfo"></span>
+        </td>
+    </tr>
+    </table>
+    <script type="text/javascript">
+　　    var color = document.getElementById("color"); 　　      　　　　　　　　//通过使用 getElementById() 来访问 <color> 元素
+　　    var colorInfo = document.getElementById("colorInfo");
+　　    colorInfo.style.color = color.value; 　　　　　　　　　　　　　　　　 //给<span>的字体加颜色
+　　    colorInfo.innerHTML = color.value;　　　　　　　　	　　　　　　　　	//给<span>加内容(<color>的值)
+　　    function changeColor(){ 　　　　　　　　　　　　　　　　　　　　 //改变颜色的事件
+　　　　    colorInfo.style.color = color.value;
+　　　　    colorInfo.innerHTML = color.value; 
+　　    }
+    </script>
+</body>
+</html>

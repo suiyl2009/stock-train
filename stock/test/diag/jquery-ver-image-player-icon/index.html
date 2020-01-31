@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery图片垂直滚动焦点图DEMO演示</title>
+</head>
+
+<body>
+
+<style type="text/css">
+*{margin:0;padding:0;list-style-type:none;}
+a, img{border:0;}
+body{font:12px/180% "微软雅黑", Arial, Helvetica, sans-serif;}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td, font {padding:0;margin: 0;font-family:"微软雅黑", Arial, Helvetica, sans-serif; font-size:12px;}
+table {border-collapse:collapse;border-spacing:0;}
+fieldset, img {border:0;vertical-align:top;}
+h1, h2, h3, h4, h5, h6 {font-weight:normal;font-size:100%;}
+ol, ul, li, dl, dt, dd {list-style:none;}
+input, button, textarea, checkbox, select, radio, form {vertical-align:top;}
+a{color:#333; text-decoration:none;outline:none; }
+a:link,a:visited{ text-decoration:none;}
+a:hover{ text-decoration:none;}
+a:focus { -moz-outline-style: none; } 
+area{blr:expression(this.onFocus=this.blur()); } /* 图片热点去掉点击链接时的虚线外框 */
+a:focus{-moz-outline-style: none; /* FF去掉点击链接时的虚线外框 */}
+p{ line-height:24px;text-align:justify; color:#333;}
+i, em{font-style:normal;}
+.l{float:left;}
+.r{float:right;}
+img{border: medium none;}
+.clear {font-size:0;line-height:0;clear:both;overflow:hidden;zoom:1;}
+.blank {height:10px;font-size:0;line-height:0;clear:both;overflow:hidden;}
+.blank2 {height:20px;font-size:0;line-height:0;clear:both;overflow:hidden;}
+body{ background:#f8f8f8;}
+/*样式格式化 END*/
+
+
+/* film_focus */
+.film_focus{width:1200px;overflow:hidden;position:relative;margin:20px auto; height:432px; border-top:solid 4px #aacf53;}
+.film_focus .film_focus_imgs_wrap{background:url(images/load.gif) no-repeat center center;width:1003px; float:right; overflow:hidden;height:430px;}
+.film_focus ul.film_focus_imgs{height:auto;position:absolute;right:0;overflow:hidden;width:1003px;}
+.film_focus ul.film_focus_imgs li{overflow:hidden; height:430px;width:1003px;height:auto; bottom:0; margin:5px 0;}
+.film_focus ul.film_focus_imgs li img{height:205px;width:324px;}
+.film_focus ul.film_focus_nav{width:193px;position:absolute;left:0;top:0;z-index:100;}
+.film_focus ul.film_focus_nav li{width:170px;height:107px;left:0px;padding:0px 10px;word-break:break-all;color:#aacf53;font-size:22px;overflow:hidden;line-height:105px; background:#fff; border-left:solid 1px #d7d7d7; border-right:solid 2px #aacf53; border-bottom:solid 1px #d7d7d7;}
+.film_focus ul.film_focus_nav li.cur{width:170px;left:0px;padding:0px 10px;word-break:break-all;color:#fff;overflow:hidden;line-height:105px; background:#aacf53; cursor:pointer; border-left:solid 1px #aacf53; border-right:solid 2px #aacf53;border-bottom:solid 1px #aacf53;}
+.film_focus ul.film_focus_nav li b{display:none;height:105px;width:170px;float:left;}
+.film_focus ul.film_focus_nav li span img{ float:left; margin:35px 10px 0 10px;}
+.film_focus ul.film_focus_nav li b p img{ float:left; margin:35px 10px 0 10px;}
+.film_focus ul.film_focus_nav li.cur b{ font-weight:100;}
+
+.film_focus ul.film_focus_nav li span.zhanl img{ float:left; margin:42px 10px 0 10px;}
+.film_focus ul.film_focus_nav li b p{ line-height:105px; font-size:22px; color:#fff;}
+.film_focus ul.film_focus_nav li b.zhanl p img{ float:left; margin:42px 10px 0 10px;}
+.film_focus ul.film_focus_nav li p{ line-height:105px; color:#aacf53; font-size:22px;}
+
+.film_focus ul.film_focus_nav li span.huod img{ float:left; margin:25px 10px 0 10px;}
+.film_focus ul.film_focus_nav li b.huod p img{ float:left; margin:25px 10px 0 10px;}
+
+.film_focus ul.film_focus_nav li.cur b{display:block;vertical-align: middle;display: table-cell;height:105px;width:170px;float:left;}
+.film_focus ul.film_focus_nav li.cur span{display:none;}
+
+.film_focus ul.film_focus_nav li b p{ font-size:22px;}
+
+.film_focus_imgs li dl dd{float:left;width:324px; height:205px; margin:0px 0 10px 10px; }
+.film_focus_imgs li dl dd a{ width:324px; height:205px; display:block;}
+.film_focus_imgs li dl dd a .mouse_s{width:324px; height:205px;}
+.film_focus_imgs li dl dd a .mouse_s p{width:100%;bottom:40px; position:relative; line-height:40px; background:#d2d2d2; color:#333; font-size:14px; text-align:center;}
+.film_focus_imgs li dl dd a .hover_s{width:324px; height:205px; position:relative;top:-990px;}
+.film_focus_imgs li dl dd a .hover_s p{ background:#d2d2d2; color:#333; font-size:14px; text-align:center;}
+.film_focus_imgs li dl dd a:hover .hover_s{ display:block; height:205px;top:-205px;}
+.film_focus_imgs li dl dd a:hover .hover_s p{width:100%; text-align:center;bottom:40px; line-height:40px; background:none;position:relative; font-size:14px; color:#fff;}
+</style>
+
+<div style="text-align:center;clear:both;">
+<script src="/gg_bd_ad_720x90.js" type="text/javascript"></script>
+<script src="/follow.js" type="text/javascript"></script>
+</div>
+
+<div class="film_focus">
+	<div class="film_focus_desc">
+		<ul class="film_focus_nav">
+			<li class="cur"><b class="zhanl"><p><img src="images/show1_hover.png" />展览展示</p></b><span class="zhanl"><p><img src="images/show1.png" />展览展示</p></span></li>
+			<li><b class="huod"><p><img src="images/show2_hover.png" /></p>活动策划</b><span class="huod"><p><img src="images/show2.png" />活动策划</p></span></li>
+			<li><b><p><img src="images/show3_hover.png" /></p>商业设计</b><span><p><img src="images/show3.png" />商业设计</p></span></li>
+			<li><b><p><img src="images/show4_hover.png" /></p>增值服务</b><span><p><img src="images/show4.png" />增值服务</p></span></li>
+		</ul>
+	</div>
+	<div class="film_focus_imgs_wrap">
+		<ul class="film_focus_imgs">
+			<li>
+             <dl>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>1瑞马公司</p></div><div class="hover_s"><img src="images/chse.png" /><p>1瑞马公司</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>展览项目</p></div><div class="hover_s"><img src="images/chse.png" /><p>展览项目</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>管理展台</p></div><div class="hover_s"><img src="images/chse.png" /><p>管理展台</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>展示精典</p></div><div class="hover_s"><img src="images/chse.png" /><p>展示精典</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>投标历史</p></div><div class="hover_s"><img src="images/chse.png" /><p>投标历史</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>展台设计</p></div><div class="hover_s"><img src="images/chse.png" /><p>展台设计</p></div></a></dd>
+              </dl>
+            </li>
+           
+            <li>
+             <dl>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>2瑞马公司</p></div><div class="hover_s"><img src="images/chse.png" /><p>2瑞马公司</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>展览项目</p></div><div class="hover_s"><img src="images/chse.png" /><p>展览项目</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>管理展台</p></div><div class="hover_s"><img src="images/chse.png" /><p>管理展台</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>展示精典</p></div><div class="hover_s"><img src="images/chse.png" /><p>展示精典</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>投标历史</p></div><div class="hover_s"><img src="images/chse.png" /><p>投标历史</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>展台设计</p></div><div class="hover_s"><img src="images/chse.png" /><p>展台设计</p></div></a></dd>
+              </dl>
+            </li>
+            
+            <li>
+             <dl>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>3瑞马公司</p></div><div class="hover_s"><img src="images/chse.png" /><p>3瑞马公司</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>展览项目</p></div><div class="hover_s"><img src="images/chse.png" /><p>展览项目</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>管理展台</p></div><div class="hover_s"><img src="images/chse.png" /><p>管理展台</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>展示精典</p></div><div class="hover_s"><img src="images/chse.png" /><p>展示精典</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>投标历史</p></div><div class="hover_s"><img src="images/chse.png" /><p>投标历史</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>展台设计</p></div><div class="hover_s"><img src="images/chse.png" /><p>展台设计</p></div></a></dd>
+              </dl>
+            </li>
+            
+            <li>
+             <dl>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>4瑞马公司</p></div><div class="hover_s"><img src="images/chse.png" /><p>4瑞马公司</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>展览项目</p></div><div class="hover_s"><img src="images/chse.png" /><p>展览项目</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>管理展台</p></div><div class="hover_s"><img src="images/chse.png" /><p>管理展台</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>展示精典</p></div><div class="hover_s"><img src="images/chse.png" /><p>展示精典</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>投标历史</p></div><div class="hover_s"><img src="images/chse.png" /><p>投标历史</p></div></a></dd>
+              <dd><a href="#"><div class="mouse_s"><img src="images/cp.jpg" /><p>展台设计</p></div><div class="hover_s"><img src="images/chse.png" /><p>展台设计</p></div></a></dd>
+              </dl>
+            </li>
+            
+		</ul>
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery.js"></script> 
+<script type="text/javascript">
+(function(A){
+	A.fn.th_video_focus=function(E){
+		
+		var G={
+			actClass:"cur",
+			navContainerClass:".focus_pic_preview",
+			focusContainerClass:".focus_pic",
+			animTime:300,
+			delayTime:5000
+		};
+		
+		if(E){
+			A.extend(G,E)
+		}
+		
+		var C=G.actClass, D=G.navContainerClass, B=G.focusContainerClass, F=G.animTime, H=G.delayTime, I=null;
+		
+		return this.each(function(){
+			
+			var O=A(this), M=A(D+" li",O), P=A(B+" li",O), L=M.length, K=O.height();
+			
+			function N(R){
+				var V=K*R*-1;
+				var U=A(B+" li",O), W=null, T=null;
+				for(var S=0;S<=R;S++){
+					W=U.eq(S);
+					T=W.find('script[type="text/templ"]');
+					if(T.length>0){
+						W.html(T.html())
+					}
+				}
+				A(B,O).stop().animate({top:V},F,function(){
+					var Y=O.find("h3"), X=Y.height();
+					Y.height(0).html(A(B+" li").eq(R).find("img").attr("alt")).animate({height:X},0)
+				});
+				A(D+" li").eq(R).addClass(C).siblings().removeClass(C)
+			}
+			
+			function Q(){
+				if(I){
+					clearInterval(I)
+				}
+				I=setInterval(function(){
+					var R=A(D+" li."+C).index();
+					N((R+1)%L)
+				},H)
+			}
+			
+			O.hover(function(){
+				if(I){
+					clearInterval(I)
+				}
+			},function(){
+				Q()
+			});
+		
+			var J=null;
+			
+			M.hover(function(){
+				
+				var R=A(this).index();
+				
+				if(I){
+					clearInterval(I)
+				}
+				J=setTimeout(function(){
+					N(R)
+				},400)
+			},function(){
+				if(J){
+					clearTimeout(J)
+				}
+				Q()
+			}).click(function(T){
+				var R=A(this).index(), S=P.eq(R).find("a");
+				if(document.uniqueID||window.opera){
+					S[0].click();
+					T.stopPropagation();
+					T.preventDefault()
+				}
+			});
+			
+			Q()
+			
+		})
+	}
+	
+})(jQuery);
+
+$(function(){
+	
+	
+	$(".film_focus").th_video_focus({
+		navContainerClass:".film_focus_nav",
+		focusContainerClass:".film_focus_imgs",
+		delayTime:5000
+	});
+	
+});	
+</script>
+
+
+<div style="text-align:center;clear:both">
+<script src="/gg_bd_ad_720x90-2.js" type="text/javascript"></script>
+</div>
+
+</body>
+</html>

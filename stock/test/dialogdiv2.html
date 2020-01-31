@@ -1,0 +1,146 @@
+<html>
+<head>
+    <title>点击文字弹出一个DIV层窗口代码</title>
+    <style>
+        /*css代码*/
+        #menu{
+        width: 0; /*设置为0 隐藏自定义菜单*/
+        height: 125px;
+        overflow: hidden; /*隐藏溢出的元素*/
+        box-shadow: 0 1px 1px #888,1px 0 1px #ccc;
+        position: absolute; /*自定义菜单相对与body元素进行定位*/
+        }
+        .menu{
+        width: 130px;
+        height: 25px;
+        line-height: 25px;
+        padding: 0 10px;
+        }
+        .black_overlay {
+            display: none;
+            position: absolute;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1001;
+            -moz-opacity: 0.8;
+            opacity: .80;
+            filter: alpha(opacity=88);
+        }
+
+        .white_content {
+            display: none;
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            width: 55%;
+            height: 55%;
+            padding: 20px;
+            border: 10px solid orange;
+            background-color: white;
+            z-index: 1002;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <!--自定义右键菜单html代码-->
+    <div id="menu">
+        <div class="menu" id="dialog1">弹出窗口1</div>
+        <div class="menu">功能2</div>
+        <div class="menu">功能3</div>
+        <div class="menu">功能4</div>
+        <div class="menu">功能5</div>
+    </div>
+
+    <p>示例弹出层：
+        <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block'">请点这里</a>
+    </p>
+    <div id="light" class="white_content">
+        <p>这是一个层窗口示例程序.</p>
+        <label>name</label><input type="text"><br>
+        <a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">点这里关闭本窗口</a>
+    </div>
+    <div id="fade" class="black_overlay"></div>
+
+    <script>
+        window.oncontextmenu = function (e) {
+            //取消默认的浏览器自带右键 很重要！！
+            e.preventDefault();
+
+            //获取我们自定义的右键菜单
+            var menu = document.querySelector("#menu");
+
+            menu.innerHTML = '<div class="menu" id="dialog1">弹出窗口1</div>';
+            document.getElementById('dialog1').onclick = dialog1click;
+
+            //根据事件对象中鼠标点击的位置，进行定位
+            menu.style.left = e.clientX + 'px';
+            menu.style.top = e.clientY + 'px';
+
+            //改变自定义菜单的宽，让它显示出来
+            menu.style.width = '125px';
+            menu.style.height = '130px';
+
+        }
+        //关闭右键菜单，很简单
+        window.onclick = function (e) {
+
+            //用户触发click事件就可以关闭了，因为绑定在window上，按事件冒泡处理，不会影响菜单的功能
+            document.querySelector('#menu').style.width = 0;
+            document.querySelector('#menu').style.height = 0;
+        }
+
+        function dialog1click () {
+            document.getElementById('light').innerHTML =
+'<p>这是一个层窗口示例程序</p>\
+<label>编码</label><input type="text" id="tradecode"><br>\
+<label>方向</label><input type="text" id="tradedirection"><br>\
+<label>日期</label><input type="text" id="tradedate"><br>\
+<label>编号</label><input type="text" id="tradenum"><br>\
+<button id="tradeadd">添加</button>\
+<button id="tradedel">删除</button>\
+<button id="tradecancel">取消</button>';
+
+            document.getElementById('light').style.display = 'block';
+            document.getElementById('fade').style.display = 'block'
+
+            document.getElementById('tradeadd').onclick = function () {
+                var code = document.getElementById('tradecode').value;
+                var direct = document.getElementById('tradedirection').value;
+                var date = document.getElementById('tradedate').value;
+                var num = document.getElementById('tradenum').value;
+                console.log('add code: ' + code + ', direct: ' + direct + ', date: ' + date + ', num: ' + num);
+
+                document.getElementById('light').style.display = 'none';
+                document.getElementById('fade').style.display = 'none';
+            }
+
+            document.getElementById('tradedel').onclick = function () {
+                var code = document.getElementById('tradecode').value;
+                var direct = document.getElementById('tradedirection').value;
+                var date = document.getElementById('tradedate').value;
+                var num = document.getElementById('tradenum').value;
+                console.log('del code: ' + code + ', direct: ' + direct + ', date: ' + date + ', num: ' + num);
+
+                document.getElementById('light').style.display = 'none';
+                document.getElementById('fade').style.display = 'none';
+            }
+
+            document.getElementById('tradecancel').onclick = function () {
+                var code = document.getElementById('tradecode').value;
+                var direct = document.getElementById('tradedirection').value;
+                var date = document.getElementById('tradedate').value;
+                var num = document.getElementById('tradenum').value;
+                console.log('cancel code: ' + code + ', direct: ' + direct + ', date: ' + date + ', num: ' + num);
+
+                document.getElementById('light').style.display = 'none';
+                document.getElementById('fade').style.display = 'none';
+            }
+        }
+
+    </script>
+</body>
+</html>

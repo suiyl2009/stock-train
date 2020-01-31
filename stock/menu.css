@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#a {    
+    display: block;
+    background-color: gray;
+} 
+
+#slcd {
+    width: 100%;
+    height: 30px;
+    background-color: rgba(54,58,69,0.2);
+    position: fixed;
+    bottom: 0px;
+	/*opacity: 0.5;*/
+	margin: 0;
+}
+
+#slcd ul, #slcd ul li {
+    height: 30px;
+}
+
+#slcd ul li {
+    width: 60px;
+    float: left;
+    color: gray;
+    list-style-type: none;
+    line-height: 30px;
+    text-align: center;
+	display:inline;
+    overflow: hidden;
+}
+
+#slcd ul li a, #zcd1 ul li a, #zcd2 ul li a{
+  display:block;
+  text-decoration: none;
+}
+
+#slcd ul li:hover, #zcd1 ul li a:hover, #zcd2 ul li a:hover {
+    background: #ddd;
+    color: black;
+    overflow: visible;
+}
+
+#zcd1 ul, #zcd1 ul li,  #zcd1 ul li a, #zcd2 ul, #zcd2 ul li,  #zcd2 ul li a {
+    display:inline;
+    width: 120px;
+    height: 30px;
+    color: #FFFFFF;
+    background: #363a45;
+}
+
+#zcd1 ul li a, #zcd2 ul li a {
+    display:block;
+}
+
+#zcd1 {
+    margin-top: -270px;
+    width: 100%;
+}
+
+#zcd2 {
+    margin-top: -90px;
+    width: 100%;
+}
+
+#zcd2 ul li a {
+    width: 100px;
+    height: 30px;
+}
+
+#divIframe {
+    /*float:left;*/
+    width:300px;
+    height:300px;
+    background: gray;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display:none;
+}
+
+#menu #hiden {
+  /*Òþ²Ø²Ëµ¥ÑùÊ½*/
+  height: 0.12rem;
+  width: 100%;
+  background-color: #20343c;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  display: none;
+}

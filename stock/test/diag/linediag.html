@@ -1,0 +1,215 @@
+<!doctype html>
+<html>
+<head>
+    <title>line diag</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .line-select > .item-box {
+            display:inline-block;
+            vertical-align: top;
+	        border-radius: 3px;
+	        margin: 5px 5px;
+	        background: #fff;
+        }
+        .item-box .set-line{
+            height:300px;
+        }
+        .item-box .set-line .set-orient{
+            width: 80px;
+            margin: 10px 10px;
+        }
+        table { 
+            width: 200px; 
+            min-height: 25px; 
+            line-height: 25px; 
+            text-align: center; 
+            border: 1px solid #ceadad;
+            border-color:#b6ff00; 
+            border-collapse: collapse;
+            margin: 5px 5px;
+        } 
+        table thead{
+            background:gray;
+        }
+    </style>
+</head>
+<body>
+    <div id="selectLine" class="line-select">
+        <div class="item-box single-box">
+            <fieldset class="set-line">
+                <legend>single</legend>
+                <fieldset class="set-orient" style="display:inline-block;">
+                    <legend>坐标类型</legend>
+                    <input type="radio" name="s-coordinate" id="s-relative" value="relative" checked="checked" /><label for="s-relative">相对坐标</label>
+                    <input type="radio" name="s-coordinate" id="s-absolute" value="absolute" /><label for="s-absolute">绝对坐标</label>
+                </fieldset>
+                <p style="display:inline-block;vertical-align:top;margin-top:15px;">
+                    <span>买卖点</span>
+                    <input type="checkbox" id="batch-tradepoint" />
+                </p>
+                <table class="single-table" id="single-table" border="1">
+                    <thead>
+                        <tr>
+                            <th>name</th>
+                            <th>show</th>
+                            <th>color</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>123</td>
+                            <td>
+                                <select>
+                                    <option value="true">是</option>
+                                    <option value="false">-</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="color">  
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>abc</td>
+                            <td>
+                                <select>
+                                    <option value="true">是</option>
+                                    <option value="false">-</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="color">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </div>
+        <div class="item-box batch-box">
+            <fieldset class="set-line">
+                <legend>batch</legend>
+                <fieldset class="set-orient" style="display:inline-block;">
+                    <legend>坐标类型</legend>
+                    <input type="radio" name="b-coordinate" id="b-relative" value="relative" checked="checked" /><label for="b-relative">相对坐标</label>
+                    <input type="radio" name="b-coordinate" id="b-absolute" value="absolute" /><label for="b-absolute">绝对坐标</label>
+                </fieldset>
+                <p style="display:inline-block;vertical-align:top;margin-top:15px;">
+                    <span>曲线数量</span>
+                    <input type="text" id="batch-linenum" style="width:60px"/><br />
+                    <span>曲线类型</span>
+                    <select id="batch-linetype">
+                        <option value="ROE">ROE</option>
+                        <option value="Revenue">Revenue</option>
+                    </select><br />
+                    <span>买卖点</span>
+                    <input type="checkbox" id="bath-tradepoint"/>
+                </p>
+                <table class="batch-table" id="batch-table">
+                    <thead>
+                        <tr>
+                            <th>color</th>
+                            <th>删除</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <!--<td><input type="color" name="color" id="color"></td>-->
+                            <td><input type="color"></td>
+                            <td><a href="#" onclick="deleteRow(this)">删除</a></td>
+                        </tr>
+                        <tr>
+                            <td><input type="color"></td>
+                            <td><a href="#" onclick="deleteRow(this)">删除</a></td>
+                        </tr>
+                        <tr>
+                            <td><input type="color"></td>
+                            <td><a href="#" onclick="deleteRow(this)">删除</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <center><button onclick='addRow()'>添加颜色</button></center>
+            </fieldset>
+        </div>
+        <div class="list-footer">
+            <button id="selected-val" title="获取选择值，输出到控制台">GET</button>
+        </div>
+    </div>
+    <script>
+        //添加行;
+        function addRow() {
+            var tab = document.getElementById('batch-table');
+            var rowIndex = tab.rows.length + 1;
+
+            //添加一行;
+            var tr = tab.insertRow();
+            var td1 = tr.insertCell();
+            var td2 = tr.insertCell();
+
+            td1.innerHTML = '<input type="color">';
+            td2.innerHTML = '<a href="#" onclick="deleteRow(this)">删除</a>';
+
+        }
+
+        //删除行;(obj代表连接对象)
+        function deleteRow(obj) {
+            var tab = document.getElementById('batch-table');
+            //获取tr对象;
+            var tr = obj.parentNode.parentNode;
+
+            if (tab.rows.length > 2) {
+                //tr.parentNode，指的是，table对象;移除子节点;
+                tr.parentNode.removeChild(tr);
+            }
+            //重新生成行号;
+            //initRows(document.getElementById('tab'));
+        }
+
+        window.onload = function () {
+            var btn = document.getElementById('selected-val');
+            btn.onclick = function () {
+                console.log("click get");
+
+                ////////////begin: single/////////////////////
+                // begin: coordinate
+                var sCoordinate = document.getElementsByName('s-coordinate');
+                for (var i = 0; i < sCoordinate.length; i++) {
+                    if (sCoordinate[i].checked) {
+                        console.log(sCoordinate[i].value);
+                        break;
+                    }
+                }
+                // end: coordinate
+
+                // begin: table
+                var sTable = document.getElementById('single-table');
+                for (var i = 1; i < sTable.rows.length; i++) {
+                    if (3 != sTable.rows[i].cells.length){
+                        console.log('length not 3 error. sTable.rows[i].cells.length: ' + sTable.rows[i].cells.length);
+                        return;
+                    }
+                    var cols = sTable.rows[i].cells;
+                    console.log(cols[0].innerText);
+                    var cb = cols[1].children[0];
+                    console.log(cb.options[cb.selectedIndex].value);
+                    var color = cols[2].children[0];
+                    console.log(color.value);
+                }
+                // end: table
+                ////////////end: single/////////////////////
+
+                ////////////begin: batch////////////////////
+                var linenum = document.getElementById('batch-linenum');
+                console.log(linenum.value);
+
+                var linetype = document.getElementById('batch-linetype');
+                console.log(linetype.options[linetype.selectedIndex].value);
+                ////////////end: batch////////////////////
+            }
+        }
+    </script>
+</body>
+</html>
