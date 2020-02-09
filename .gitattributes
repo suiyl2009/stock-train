@@ -1,0 +1,4 @@
+*.sql linguist-language=C++
+*.html linguist-language=C++
+*.js linguist-language=C++
+*.py linguist-language=C++
